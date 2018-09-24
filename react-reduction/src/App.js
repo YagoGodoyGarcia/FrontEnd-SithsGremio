@@ -153,6 +153,12 @@ class App extends React.Component {
               layout={MainLayout}
               component={AuthPage}
             />
+            <LayoutRoute
+              exact
+              path="/Eventos"
+              layout={MainLayout}
+              component={EventosLista}
+            />
             <Redirect to="/" />
           </Switch>
         </GAListener>
