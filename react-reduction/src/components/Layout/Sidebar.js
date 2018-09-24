@@ -81,6 +81,8 @@ const pageContents = [
 ];
 
 const navItems = [
+  { to: '/Eventos', name: 'Eventos', exact: true, Icon: MdDashboard },
+  { to: '/HomeAdm', name: 'HomeAdm', exact: true, Icon: MdWidgets },
   { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
   { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
   { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },

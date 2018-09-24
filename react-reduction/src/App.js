@@ -12,6 +12,7 @@ import ChartPage from 'pages/ChartPage';
 // pages
 import DashboardPage from 'pages/DashboardPage';
 import EventosLista from 'pages/ListaDeEventos';
+import HomeAdm from 'pages/HomeAdm';
 import DropdownPage from 'pages/DropdownPage';
 import FormPage from 'pages/FormPage';
 import InputGroupPage from 'pages/InputGroupPage';
@@ -158,6 +159,12 @@ class App extends React.Component {
               path="/Eventos"
               layout={MainLayout}
               component={EventosLista}
+            />
+            <LayoutRoute
+              exact
+              path="/HomeAdm"
+              layout={MainLayout}
+              component={HomeAdm}
             />
             <Redirect to="/" />
           </Switch>
