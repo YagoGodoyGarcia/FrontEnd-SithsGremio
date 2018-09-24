@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'utils/propTypes';
 
-import { Card, CardImg, CardImgOverlay, CardTitle, CardText, Row} from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle, Button, CardText, Row} from 'reactstrap';
 
 import Todos, { propTypes as TodosPropTypes } from 'components/Todos';
 
@@ -18,7 +18,7 @@ const Salaopcao = ({ image, title, subtitle, todos, ...restProps }) => {
             <CardText className="text-white">{subtitle}</CardText>
             </CardImgOverlay>
         </div>
-        <Todos todos={todos} />
+        <Button color="secondary">Salas</Button>
         </Card>
     </div>
     
@@ -34,8 +34,8 @@ Salaopcao.propTypes = {
 
 Salaopcao.defaultProps = {
   image: backgroundImage,
-  title: 'Tasks',
-  subtitle: 'Due soon...',
+  title: 'Salas',
+  subtitle: 'Gerenciamento de Salas',
 };
 
 export default Salaopcao;

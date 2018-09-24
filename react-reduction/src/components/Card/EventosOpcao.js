@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'utils/propTypes';
 
-import { Card, CardImg, CardImgOverlay, CardTitle, CardText, Row} from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle, Button, CardText, Row} from 'reactstrap';
 
 import Todos, { propTypes as TodosPropTypes } from 'components/Todos';
 
@@ -18,7 +18,7 @@ const EventosOpcao = ({ image, title, subtitle, todos, ...restProps }) => {
             <CardText className="text-white">{subtitle}</CardText>
             </CardImgOverlay>
         </div>
-        <Todos todos={todos} />
+        <Button color="secondary">Eventos</Button>
         </Card>
     </div>
     
