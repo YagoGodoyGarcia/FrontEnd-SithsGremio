@@ -11,13 +11,13 @@ const PalestranteOpcao = ({ image, title, subtitle, todos, ...restProps }) => {
   return (
     <div>
         <Card {...restProps}>
-        <Card className="position-relative">
+        <div className="position-relative">
             <CardImg src={image} />
             <CardImgOverlay className="bg-dark" style={{ opacity: 0.2 }}>
             <CardTitle className="text-white">{title}</CardTitle>
             <CardText className="text-white">{subtitle}</CardText>
             </CardImgOverlay>
-        </Card>
+        </div>
         <Todos todos={todos} />
         </Card>
     </div>
