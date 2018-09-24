@@ -5,7 +5,7 @@ import { Card, CardImg, CardImgOverlay, CardTitle, CardText, Row} from 'reactstr
 
 import Todos, { propTypes as TodosPropTypes } from 'components/Todos';
 
-import backgroundImage from 'assets/img/bg/background_1920-2.jpg';
+import backgroundImage from 'assets/img/bg/salas.jpg';
 
 const Salaopcao = ({ image, title, subtitle, todos, ...restProps }) => {
   return (

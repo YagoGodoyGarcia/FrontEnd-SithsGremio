@@ -5,19 +5,19 @@ import { Card, CardImg, CardImgOverlay, CardTitle, CardText, Row} from 'reactstr
 
 import Todos, { propTypes as TodosPropTypes } from 'components/Todos';
 
-import backgroundImage from 'assets/img/bg/background_1920-2.jpg';
+import backgroundImage from 'assets/img/bg/palestrante.jpg';
 
 const PalestranteOpcao = ({ image, title, subtitle, todos, ...restProps }) => {
   return (
     <div>
         <Card {...restProps}>
-        <div className="position-relative">
+        <Card className="position-relative">
             <CardImg src={image} />
             <CardImgOverlay className="bg-dark" style={{ opacity: 0.2 }}>
             <CardTitle className="text-white">{title}</CardTitle>
             <CardText className="text-white">{subtitle}</CardText>
             </CardImgOverlay>
-        </div>
+        </Card>
         <Todos todos={todos} />
         </Card>
     </div>
