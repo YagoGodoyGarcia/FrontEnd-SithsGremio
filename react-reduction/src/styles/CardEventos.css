@@ -1,0 +1,10 @@
+.BorderCard{
+    border: none;
+}
+.CardContainer{
+    width: 45%;
+    margin-left: 1%;
+}
+.ModalStyle{
+    width: 150px;
+}

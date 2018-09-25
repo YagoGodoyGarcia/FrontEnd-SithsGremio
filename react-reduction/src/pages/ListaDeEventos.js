@@ -4,17 +4,21 @@ import { getColor } from 'utils/colors';
 
 import {
   Card,
-  CardBody,
-  CardHeader,
-  CardTitle,
-  CardGroup,
-  CardDeck,
   Row,
   Col,
-  ListGroup,
-  ListGroupItem,
-  Badge,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   Button,
+  Table,
+  CardBody,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormText,
+  FormFeedback,
 } from 'reactstrap';
 
 import {
@@ -55,51 +59,147 @@ class ListaDeEventos extends React.Component {
     // this is needed, because InfiniteCalendar forces window scroll
     window.scrollTo(0, 0);
   }
+  state = {
+    modal: false,
+    modal_backdrop: false,
+    modal_nested_parent: false,
+    modal_nested: false,
+    modal_chamada:false,
+    backdrop: true,
+  };
 
+  toggle = modalType => () => {
+    if (!modalType) {
+      return this.setState({
+        modal: !this.state.modal,
+      });
+    }
+
+    this.setState({
+      [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+    });
+  };
   render() {
     return (
       <Page
         className="ListaDeEventos"
-        title="Lista de Eventos ">
+        title="Eventos ">
+        <Button outline color="success" size="lg" onClick={this.toggle('nested_parent')}>+ Adicionar</Button>
+        <br /><br />
         <Row>
-          <Col lg={3} md={6} sm={6} xs={12}>
-            <NumberWidget
-              title="Nome do Evento"
-              subtitle="Tema"
-              number="00/00"
-              color="secondary"
-              progress={{
-                value: 75,
-                label: 'Vagas Ocupadas',
-              }}
-            />
-          </Col>
-          <Col lg={3} md={6} sm={6} xs={12}>
-            <NumberWidget
-              title="Nome do Evento"
-              subtitle="Tema"
-              number="00/00"
-              color="secondary"
-              progress={{
-                value: 75,
-                label: 'Vagas Ocupadas',
-              }}
-            />
-          </Col>
-          <Col lg={3} md={6} sm={6} xs={12}>
-            <NumberWidget
-              title="Nome do Evento"
-              subtitle="Tema"
-              number="00/00"
-              color="secondary"
-              progress={{
-                value: 75,
-                label: 'Vagas Ocupadas',
-              }}
-            />
-          </Col>    
+          <Card className="CardContainer">
+            <Col lg={12} md={6} sm={6} xs={12} >
+              <NumberWidget
+                title="Nome do Evento"
+                subtitle="Tema"
+                number="00/00"
+                color="secondary"
+                progress={{
+                  value: 60,
+                  label: 'Vagas Ocupadas',
+                }}
+                className="BorderCard"
+              />
+
+              <Button color="success" size="sm" block>Editar Evento</Button>
+              <Button color="danger" size="sm" block onClick={this.toggle('chamada')}>Remover Evento</Button>
+              <br/>
+            </Col>
+          </Card>
+          <Card className="CardContainer">
+            <Col lg={12} md={6} sm={6} xs={12}>
+              <NumberWidget
+                title="Nome do Evento"
+                subtitle="Tema"
+                number="00/00"
+                color="secondary"
+                progress={{
+                  value: 60,
+                  label: 'Vagas Ocupadas',
+                }}
+                className="BorderCard"
+              />
+
+              <Button color="success" size="sm" block>Editar Evento</Button>
+              <Button color="danger" size="sm" block>Remover Evento</Button>
+              <br />
+            </Col>
+          </Card>
+
+          <Modal
+            isOpen={this.state.modal_nested_parent}
+            toggle={this.toggle('nested_parent')}
+            className={this.props.className}
+          >
+            <ModalHeader toggle={this.toggle('nested_parent')} >
+              Eventos
+            </ModalHeader>
+            <ModalBody>
+              <Form>
+                <FormGroup>
+                  <Label>Nome do Evento</Label>
+                  <Input
+                    type="text"
+                    name="nome"
+                    placeholder="Digite o nome"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label>Nome do Palestrante</Label>
+                  <Input
+                    type="text"
+                    name="nome"
+                    placeholder="Digite o nome"
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="exampleText">Descrição</Label>
+                  <Input type="textarea" name="text" />
+                </FormGroup>
+                <FormGroup>
+                  <Label for="exampleSelect">Selecione a Sala</Label>
+                  <Input type="select" name="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="exampleDate">Data</Label>
+                  <Input
+                    type="date"
+                    name="date"
+                    id="exampleDate"
+                    placeholder="date placeholder"
+                  />
+                
+                  <Label for="exampleTime">Hora</Label>
+                  <Input
+                    type="time"
+                    name="time"
+                    id="exampleTime"
+                    placeholder="time placeholder"
+                  />
+                </FormGroup>
+              </Form>
+            </ModalBody>
+            <ModalFooter>
+              <Button
+                color="success"
+                onClick={this.toggle('nested_parent')}>
+                Salvar
+                    </Button>{' '}
+              <Button
+                color="danger"
+                onClick={this.toggle('nested_parent')}>
+                Cancelar
+                    </Button>
+            </ModalFooter>
+          </Modal>
         </Row>
-        </Page>
+      </Page>
     );
   }
 }

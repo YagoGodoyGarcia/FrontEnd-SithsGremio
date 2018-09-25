@@ -53,9 +53,9 @@ const pageContents = [
 ];
 
 const navItems = [
-  { to: '/Eventos', name: 'Eventos', exact: true, Icon: MdDashboard },
+  { to: '/', name: 'EventosAdm', exact: true, Icon: MdDashboard },
+  { to: '/EventosAlunos', name: 'EventosAlunos', exact: true, Icon: MdDashboard },
   { to: '/Salas', name: 'Salas', exact: true, Icon: MdWidgets },
-  { to: '/Palestrantes', name: 'Palestrantes', exact: true, Icon: MdDashboard },
 ];
 
 const bem = bn.create('sidebar');

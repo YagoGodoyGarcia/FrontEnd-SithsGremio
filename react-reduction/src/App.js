@@ -12,7 +12,7 @@ import ChartPage from 'pages/ChartPage';
 // pages
 import DashboardPage from 'pages/DashboardPage';
 import EventosLista from 'pages/ListaDeEventos';
-import HomeAdm from 'pages/HomeAdm';
+import EventosParaAlunos from 'pages/EventosParaAlunos';
 import DropdownPage from 'pages/DropdownPage';
 import FormPage from 'pages/FormPage';
 import InputGroupPage from 'pages/InputGroupPage';
@@ -25,6 +25,7 @@ import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import './styles/reduction.css';
+import './styles/CardEventos.css';
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -40,13 +41,19 @@ class App extends React.Component {
               exact
               path="/"
               layout={MainLayout}
-              component={HomeAdm}
+              component={EventosLista}
             />
             <LayoutRoute
               exact
               path="/Eventos"
               layout={MainLayout}
               component={EventosLista}
+            />
+            <LayoutRoute
+              exact
+              path="/EventosAlunos"
+              layout={MainLayout}
+              component={EventosParaAlunos}
             />
             <Redirect to="/" />
           </Switch>
