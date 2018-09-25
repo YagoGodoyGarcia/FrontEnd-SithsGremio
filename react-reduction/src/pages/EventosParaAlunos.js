@@ -156,6 +156,7 @@ class EventosParaAlunos extends React.Component {
                                     <CardText >Hora: 03:50:PM</CardText>
                                 </FormGroup>
                             </Form>
+                            <Button color="success" size="sm" block>Participar</Button>
                         </ModalBody>
                     </Modal>
                 </Row>
