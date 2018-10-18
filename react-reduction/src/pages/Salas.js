@@ -43,8 +43,7 @@ import {
 } from 'demos/dashboardPage';
 
 import Page from 'components/Page';
-import BtnCadastrar from '../components/CadastraEvento'
-import Eventos from '../components/ListarEventosAdm'
+import BtnCadastrar from '../components/CadastraSala';
 import { NumberWidget, IconWidget } from 'components/Widget';
 
 
@@ -55,16 +54,15 @@ const lastWeek = new Date(
   today.getDate() - 7
 );
 
-class ListaDeEventos extends React.Component {
+class Salas extends React.Component {
   render() {
     return (
       <Page
         className="ListaDeEventos"
-        title="Eventos ">
+        title="Salas ">
         <BtnCadastrar/>
-        <Eventos />
       </Page>
     );
   }
 }
-export default ListaDeEventos;
+export default Salas;

@@ -13,6 +13,7 @@ import ChartPage from 'pages/ChartPage';
 import DashboardPage from 'pages/DashboardPage';
 import EventosLista from 'pages/ListaDeEventos';
 import EventosParaAlunos from 'pages/EventosParaAlunos';
+import Salas from 'pages/Salas';
 import DropdownPage from 'pages/DropdownPage';
 import FormPage from 'pages/FormPage';
 import InputGroupPage from 'pages/InputGroupPage';
@@ -54,6 +55,12 @@ class App extends React.Component {
               path="/EventosAlunos"
               layout={MainLayout}
               component={EventosParaAlunos}
+            />
+            <LayoutRoute
+              exact
+              path="/Salas"
+              layout={MainLayout}
+              component={Salas}
             />
             <Redirect to="/" />
           </Switch>

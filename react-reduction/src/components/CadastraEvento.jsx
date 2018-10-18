@@ -42,7 +42,7 @@ const lastWeek = new Date(
     today.getDate() - 7
 );
 
-class ListarEventosAdm extends React.Component {
+class CadastraEvento extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,7 +50,7 @@ class ListarEventosAdm extends React.Component {
         };
     }
     componentDidMount() {
-        setInterval(() => {
+        
             var th = this;
             axios.get(`http://localhost:8080/ListaEvento`)
                 .then(function (result) {
@@ -58,7 +58,7 @@ class ListarEventosAdm extends React.Component {
                         customersList: result.data
                     });
                 });
-        }, 5000)
+
     }
     state = {
         modal: false,
@@ -82,24 +82,62 @@ class ListarEventosAdm extends React.Component {
             <div>
 
 
-                <Button color="success" size="sm" block onClick={this.toggle()}>Novo Evento</Button>
+                <Button color="success" size="sm" onClick={this.toggle()}>Novo Evento</Button>
 
 
                 <Modal
                     isOpen={this.state.modal}
                     toggle={this.toggle()}
                     className={this.props.className}>
-                    <ModalHeader toggle={this.toggle()}>Modal title</ModalHeader>
+                    <ModalHeader toggle={this.toggle()}>Evento</ModalHeader>
                     <ModalBody>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                        occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.
-                  </ModalBody>
+                        <FormGroup>
+                            <Label for="exampleUrl">Nome do Evento</Label>
+                            <Input
+                                type="url"
+                                name="url"
+                                id="exampleUrl"
+                                placeholder="Digite o nome"
+                            />
+                        </FormGroup>
+                        
+                        <FormGroup>
+                            <Label for="exampleUrl">Palestrante</Label>
+                            <Input
+                                type="url"
+                                name="url"
+                                id="exampleUrl"
+                                placeholder="Digite o nome"
+                            />
+                        </FormGroup>
+                        
+                        <FormGroup>
+                            <Label for="exampleDate">Date</Label>
+                            <Input
+                                type="date"
+                                name="date"
+                                id="exampleDate"
+                                placeholder="date placeholder"
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleTime">Time</Label>
+                            <Input
+                                type="time"
+                                name="time"
+                                id="exampleTime"
+                                placeholder="time placeholder"
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleText">Descrição</Label>
+                            <Input type="textarea" name="text" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleText">Sala</Label>
+                            <Input type="select" name="select" />
+                        </FormGroup>
+                    </ModalBody>
                     <ModalFooter>
                         <Button color="primary" onClick={this.toggle()}>
                             Do Something
@@ -116,4 +154,4 @@ class ListarEventosAdm extends React.Component {
 }
 
 
-export default ListarEventosAdm;
+export default CadastraEvento;
