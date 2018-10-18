@@ -42,7 +42,7 @@ const lastWeek = new Date(
     today.getDate() - 7
 );
 
-class ListarEventosAlunos extends React.Component {
+class ListarEventosAdm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -136,4 +136,4 @@ class ListarEventosAlunos extends React.Component {
 }
 
 
-export default ListarEventosAlunos;
+export default ListarEventosAdm;
