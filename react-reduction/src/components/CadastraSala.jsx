@@ -47,22 +47,28 @@ class CadastraSala extends React.Component {
         super(props);
         this.state = {
             customersList: [],
-            numero: '',
-            capacide: ''
         };
     }
-    cadastra() {
-        {
-            var th = this;
-            console.log(this.numero,this.capacide)
-            axios.get(`http://localhost:8080/ListaEvento`)
-                .then(function (result) {
-                    th.setState({
-                        customersList: result.data
-                    });
-                });
-
-        }
+    cadastra = () =>{
+        
+        var th = this
+        let numeroSala = document.getElementById("numeroSala").value
+        let capacideSala = document.getElementById("capacidadeSala").value
+           
+        axios.post(`http://localhost:8080/SalaRegistration`, {
+            numero: numeroSala,
+            capacidade: capacideSala,
+            disponibilidade: true
+        })
+        .then(function (response) {
+            console.log("Cadastrado");
+            document.getElementById("numeroSala").value = ""
+            document.getElementById("capacidadeSala").value = ""
+            document.getElementById('status').innerHTML  = 'Cadastro realizado com sucesso';
+        })
+        .catch(function (error) {
+            console.log(error);
+        });              
     }
         state = {
             modal: false,
@@ -80,14 +86,6 @@ class CadastraSala extends React.Component {
                 [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
             });
         };
-
-        NumeroChange (evt) {
-            this.setState({ numero: evt.target.value });
-          }
-          
-         CapacidadeChange (evt) {
-            this.setState({ capacide: evt.target.value });
-          }
         render() {
             return (
                 <div>
@@ -109,7 +107,6 @@ class CadastraSala extends React.Component {
                                     name="number"
                                     id="numeroSala"
                                     placeholder="numero da sala"
-                                    onChange={this.NumeroChange}
                                 />
                             </FormGroup>
                             <FormGroup>
@@ -119,12 +116,12 @@ class CadastraSala extends React.Component {
                                     name="number"
                                     id="capacidadeSala"
                                     placeholder="Capacidade da sala"
-                                    onChange={this.CapacidadeChange}
                                 />
                             </FormGroup>
+                            <Label for="exampleNumber" id="status"></Label>
                         </ModalBody>
                         <ModalFooter>
-                            <Button color="primary" onClick={this.cadastra()}>
+                            <Button color="primary" onClick={this.cadastra}>
                                 Cadastrar
                             </Button>
                         </ModalFooter>

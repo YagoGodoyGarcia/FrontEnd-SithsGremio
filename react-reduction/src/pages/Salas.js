@@ -44,7 +44,7 @@ import {
 
 import Page from 'components/Page';
 import BtnCadastrar from '../components/CadastraSala';
-import { NumberWidget, IconWidget } from 'components/Widget';
+import SalasList from '../components/ListarSalas'
 
 
 const today = new Date();
@@ -61,6 +61,7 @@ class Salas extends React.Component {
         className="ListaDeEventos"
         title="Salas ">
         <BtnCadastrar/>
+        <SalasList/>
       </Page>
     );
   }
