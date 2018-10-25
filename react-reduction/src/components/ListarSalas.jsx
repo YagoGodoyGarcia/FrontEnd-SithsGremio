@@ -71,19 +71,19 @@ class ListarSalas extends React.Component {
         }, 5000)
 
     }
-    
-    
+
+
     function(id) {
-        var th3= this;
+        var th3 = this;
         axios.post(`http://localhost:8080/DeleteSala`, {
             id_sala: id
         })
-        .then(function (response) {
-            console.log("Deletado");
-        })
-        .catch(function (error) {
-            console.log(error);
-        });  
+            .then(function (response) {
+                console.log("Deletado");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {
@@ -99,7 +99,15 @@ class ListarSalas extends React.Component {
                                 <CardText>
                                     Capacidade: {dynamicData.capacidade}
                                 </CardText>
-                                <Button color="danger" size="sm" block onclick = {this.function(dynamicData.idSala)}>Remover Sala</Button>
+                                <Button color="danger" size="sm" block onClick={() =>{ 
+                                    axios.post(`http://localhost:8080/DeleteSala?id_sala=`+dynamicData.idSala)
+                                        .then(function (response) {
+                                            console.log("Deletado");
+                                        })
+                                        .catch(function (error) {
+                                            console.log(error);
+                                        })
+                                }}>Remover Sala</Button>
                                 <br />
                             </Col>
                         </Card>
