@@ -41,12 +41,13 @@ const lastWeek = new Date(
     today.getMonth(),
     today.getDate() - 7
 );
-
+var idEV
 class ListarEventosAdm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customersList: [],
+            evento: [],
         };
     }
     componentDidMount() {
@@ -63,19 +64,30 @@ class ListarEventosAdm extends React.Component {
     state = {
         modal: false,
         backdrop: true,
-      };
-    
-      toggle = modalType => () => {
-        if (!modalType) {
-          return this.setState({
-            modal: !this.state.modal,
-          });
-        }
-    
+    };
+    verMaisEv = idEventoClick => (modalType) => {
+        var th1 = this;
+        axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
+            .then(function (result) {
+                th1.setState({
+                    evento: result.data
+                })
+            });
         this.setState({
-          [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+            modal: !this.state.modal,
         });
-      };
+    }
+    toggle = modalType => () => {
+        if (!modalType) {
+            return this.setState({
+                modal: !this.state.modal,
+            });
+        }
+
+        this.setState({
+            [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+        });
+    };
 
     render() {
         return (
@@ -93,43 +105,41 @@ class ListarEventosAdm extends React.Component {
                                     label: 'Vagas Ocupadas',
                                 }}
                                 className="BorderCard"
+
                             />
                             <CardText className="descricao">
-
                                 <p>Resumo: {dynamicData.descricao}</p>
-
                             </CardText>
-                            <Button color="success" size="sm" block onClick={this.toggle()}>Ver Mais</Button>
+                            <Button color="success" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
                             <br />
                         </Col>
                     </Card>
 
                 )}
                 <Modal
-                  isOpen={this.state.modal}
-                  toggle={this.toggle()}
-                  className={this.props.className}>
-                  <ModalHeader toggle={this.toggle()}>Modal title</ModalHeader>
-                  <ModalBody>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                    sed do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    isOpen={this.state.modal}
+                    toggle={this.toggle()}
+                    className={this.props.className}>
+                    <ModalHeader toggle={this.toggle()} ></ModalHeader>
+                    <ModalBody id="descricaoEvento">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore magna
+                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        Duis aute irure dolor in reprehenderit in voluptate velit
+                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                        occaecat cupidatat non proident, sunt in culpa qui officia
+                        deserunt mollit anim id est laborum.
                   </ModalBody>
-                  <ModalFooter>
-                    <Button color="primary" onClick={this.toggle()}>
-                      Do Something
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle()}>
+                            Do Something
                     </Button>{' '}
-                    <Button color="secondary" onClick={this.toggle()}>
-                      Cancel
+                        <Button color="secondary" onClick={this.toggle()}>
+                            Cancel
                     </Button>
-                  </ModalFooter>
+                    </ModalFooter>
                 </Modal>
-
             </div>
         )
     }

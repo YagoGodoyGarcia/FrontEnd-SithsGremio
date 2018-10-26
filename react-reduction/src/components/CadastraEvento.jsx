@@ -46,18 +46,62 @@ class CadastraEvento extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            customersList: [],
+            customersListEventos: [],
+            customersListSalas: [],
         };
     }
     componentDidMount() {
-        
+        var th = this;
+        axios.get(`http://localhost:8080/ListaEvento`)
+            .then(function (result) {
+                th.setState({
+                    customersListEventos: result.data
+                });
+            });
+        setInterval(() => {
             var th = this;
-            axios.get(`http://localhost:8080/ListaEvento`)
+            axios.get(`http://localhost:8080/ListaSala`)
                 .then(function (result) {
                     th.setState({
-                        customersList: result.data
+                        customersListSalas: result.data
                     });
                 });
+        }, 5000)
+    }
+    cadastrar() {
+        var th = this
+        let nomeEv = document.getElementById("nomeEvento").value
+        let palestranteEv = document.getElementById("palestrante").value
+        let dataEv = document.getElementById("data").value
+        let horaEv = document.getElementById("hora").value
+        let descricaoEv = document.getElementById("descricao").value
+        let objSala = document.getElementById("sala");
+        let salaEv = objSala.options[objSala.selectedIndex].value;
+
+        if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
+                axios.post(`http://localhost:8080/EventoRegistration`, {
+                    nome: nomeEv,
+                    data: dataEv,
+                    hora: horaEv,
+                    descricao: descricaoEv,
+                    palestrante: palestranteEv,
+                    sala: salaEv
+                })
+                .then(function (response) {
+                    console.log("Cadastrado");
+                    document.getElementById("nomeEvento").value = ""
+                    document.getElementById("palestrante").value = ""
+                    document.getElementById("data").value = ""
+                    document.getElementById("hora").value = ""
+                    document.getElementById("descricao").value = ""
+                    document.getElementById('status').innerHTML = 'Cadastro realizado com sucesso';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            document.getElementById('status').innerHTML = 'Preencha todos os campos!';
+        }
 
     }
     state = {
@@ -96,53 +140,58 @@ class CadastraEvento extends React.Component {
                             <Input
                                 type="url"
                                 name="url"
-                                id="exampleUrl"
+                                id="nomeEvento"
                                 placeholder="Digite o nome"
                             />
                         </FormGroup>
-                        
+
                         <FormGroup>
                             <Label for="exampleUrl">Palestrante</Label>
                             <Input
                                 type="url"
                                 name="url"
-                                id="exampleUrl"
+                                id="palestrante"
                                 placeholder="Digite o nome"
                             />
                         </FormGroup>
-                        
+
                         <FormGroup>
-                            <Label for="exampleDate">Date</Label>
+                            <Label for="exampleDate">Data</Label>
                             <Input
                                 type="date"
                                 name="date"
-                                id="exampleDate"
+                                id="data"
                                 placeholder="date placeholder"
                             />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="exampleTime">Time</Label>
+                            <Label for="exampleTime">Horario</Label>
                             <Input
                                 type="time"
                                 name="time"
-                                id="exampleTime"
+                                id="hora"
                                 placeholder="time placeholder"
                             />
                         </FormGroup>
                         <FormGroup>
                             <Label for="exampleText">Descrição</Label>
-                            <Input type="textarea" name="text" />
+                            <Input type="textarea" name="text" id="descricao" />
                         </FormGroup>
                         <FormGroup>
                             <Label for="exampleText">Sala</Label>
-                            <Input type="select" name="select" />
+                            <Input type="select" name="select" id="sala">
+                                {this.state.customersListSalas.map((dynamicData) =>
+                                    <option value={dynamicData.idSala}>{dynamicData.numero}</option>
+                                )}
+                            </Input>
+                            <Label for="exampleNumber" id="status"></Label>
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggle()}>
-                            Do Something
+                        <Button color="success" onClick={this.cadastrar}>
+                            Salvar
                     </Button>{' '}
-                        <Button color="secondary" onClick={this.toggle()}>
+                        <Button color="danger" onClick={this.toggle()}>
                             Cancel
                     </Button>
                     </ModalFooter>

@@ -53,37 +53,23 @@ class ListarSalas extends React.Component {
     componentDidMount() {
         setInterval(() => {
             var th = this;
-            axios.get(`http://localhost:8080/ListaSalaDisponivel`)
+            axios.get(`http://localhost:8080/ListaSala`)
                 .then(function (result) {
                     th.setState({
                         customersList: result.data
                     });
                 });
         }, 5000)
-        setInterval(() => {
-            var th2 = this;
-            axios.get(`http://localhost:8080/ListaSalaNDisponivel`)
-                .then(function (result) {
-                    th2.setState({
-                        customersListN: result.data
-                    });
-                });
-        }, 5000)
+        // setInterval(() => {
+        //     var th2 = this;
+        //     axios.get(`http://localhost:8080/ListaSalaNDisponivel`)
+        //         .then(function (result) {
+        //             th2.setState({
+        //                 customersListN: result.data
+        //             });
+        //         });
+        // }, 5000)
 
-    }
-
-
-    function(id) {
-        var th3 = this;
-        axios.post(`http://localhost:8080/DeleteSala`, {
-            id_sala: id
-        })
-            .then(function (response) {
-                console.log("Deletado");
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
 
     render() {
