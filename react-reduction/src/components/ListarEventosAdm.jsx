@@ -47,7 +47,7 @@ class ListarEventosAdm extends React.Component {
         super(props);
         this.state = {
             customersList: [],
-            evento: [],
+            customersListSalas: [],
         };
     }
     componentDidMount() {
@@ -60,6 +60,15 @@ class ListarEventosAdm extends React.Component {
                     });
                 });
         }, 5000)
+        setInterval(() => {
+            var th = this;
+            axios.get(`http://localhost:8080/ListaSala`)
+                .then(function (result) {
+                    th.setState({
+                        customersListSalas: result.data
+                    });
+                });
+        }, 5000)
     }
     state = {
         modal: false,
@@ -69,9 +78,13 @@ class ListarEventosAdm extends React.Component {
         var th1 = this;
         axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
             .then(function (result) {
-                th1.setState({
-                    evento: result.data
-                })
+                document.getElementById("nomeEvento").value =  result.data.nome
+                document.getElementById("palestrante").value = result.data.palestrante
+                document.getElementById("data").value = result.data.data
+                document.getElementById("hora").value = result.data.hora
+                document.getElementById("descricao").value = result.data.descricao
+                let objSala = document.getElementById("sala").selectedIndex;
+                objSala.options[objSala.selectedIndex].value = result.data.idSala;
             });
         this.setState({
             modal: !this.state.modal,
@@ -120,22 +133,65 @@ class ListarEventosAdm extends React.Component {
                     isOpen={this.state.modal}
                     toggle={this.toggle()}
                     className={this.props.className}>
-                    <ModalHeader toggle={this.toggle()} ></ModalHeader>
-                    <ModalBody id="descricaoEvento">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        Duis aute irure dolor in reprehenderit in voluptate velit
-                        esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                        occaecat cupidatat non proident, sunt in culpa qui officia
-                        deserunt mollit anim id est laborum.
-                  </ModalBody>
+                    <ModalHeader toggle={this.toggle()}>Evento</ModalHeader>
+                    <ModalBody>
+                        <FormGroup>
+                            <Label for="exampleUrl">Nome do Evento</Label>
+                            <Input
+                                type="url"
+                                name="url"
+                                id="nomeEvento"
+                                placeholder="Digite o nome"
+                            />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="exampleUrl">Palestrante</Label>
+                            <Input
+                                type="url"
+                                name="url"
+                                id="palestrante"
+                                placeholder="Digite o nome"
+                            />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <Label for="exampleDate">Data</Label>
+                            <Input
+                                type="date"
+                                name="date"
+                                id="data"
+                                placeholder="date placeholder"
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleTime">Horario</Label>
+                            <Input
+                                type="time"
+                                name="time"
+                                id="hora"
+                                placeholder="time placeholder"
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleText">Descrição</Label>
+                            <Input type="textarea" name="text" id="descricao" />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label for="exampleText">Sala</Label>
+                            <Input type="select" name="select" id="sala">
+                            {this.state.customersListSalas.map((dynamicData) =>
+                                    <option value={dynamicData.idSala}>{dynamicData.numero}</option>
+                                )}
+                            </Input>
+                            <Label for="exampleNumber" id="status"></Label>
+                        </FormGroup>
+                    </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggle()}>
-                            Do Something
+                        <Button color="success" onClick={this.cadastrar}>
+                            Salvar
                     </Button>{' '}
-                        <Button color="secondary" onClick={this.toggle()}>
+                        <Button color="danger" onClick={this.toggle()}>
                             Cancel
                     </Button>
                     </ModalFooter>
