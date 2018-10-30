@@ -74,6 +74,39 @@ class ListarEventosAdm extends React.Component {
         modal: false,
         backdrop: true,
     };
+    atualiza() {
+        var th = this
+        let nomeEv = document.getElementById("nomeEvento").value
+        let palestranteEv = document.getElementById("palestrante").value
+        let dataEv = document.getElementById("data").value
+        let horaEv = document.getElementById("hora").value
+        let descricaoEv = document.getElementById("descricao").value
+        let objSala = document.getElementById("sala");
+        let salaEv = objSala.options[objSala.selectedIndex].value;
+        let idEv = document.getElementById("spamId").value
+
+        if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
+                axios.post(`http://localhost:8080/EventoAtualiza`, {
+                    id_evento: idEv,
+                    nome: nomeEv,
+                    data: dataEv,
+                    hora: horaEv,
+                    descricao: descricaoEv,
+                    palestrante: palestranteEv,
+                    sala: salaEv,
+                })
+                .then(function (response) {
+                    console.log("Cadastrado");
+                    document.getElementById('status').innerHTML = 'Evento atualizado com sucesso';
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        } else {
+            document.getElementById('status').innerHTML = 'Preencha todos os campos!';
+        }
+
+    }
     verMaisEv = idEventoClick => (modalType) => {
         var th1 = this;
         axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
@@ -83,8 +116,8 @@ class ListarEventosAdm extends React.Component {
                 document.getElementById("data").value = result.data.data
                 document.getElementById("hora").value = result.data.hora
                 document.getElementById("descricao").value = result.data.descricao
-                let objSala = document.getElementById("sala").selectedIndex;
-                objSala.options[objSala.selectedIndex].value = result.data.idSala;
+                document.getElementById("sala").value = result.data.sala.idSala
+                document.getElementById("spamId").value = result.data.idEvento
             });
         this.setState({
             modal: !this.state.modal,
@@ -110,19 +143,14 @@ class ListarEventosAdm extends React.Component {
                         <Col lg={12} md={6} sm={6} xs={12}>
                             <NumberWidget
                                 title={dynamicData.nome}
-                                subtitle={dynamicData.palestrante}
-                                number={dynamicData.data}
+                                number={dynamicData.data.split('-').reverse().join('/')}
                                 color="secondary"
                                 progress={{
                                     value: 60,
                                     label: 'Vagas Ocupadas',
                                 }}
                                 className="BorderCard"
-
                             />
-                            <CardText className="descricao">
-                                <p>Resumo: {dynamicData.descricao}</p>
-                            </CardText>
                             <Button color="success" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
                             <br />
                         </Col>
@@ -157,7 +185,7 @@ class ListarEventosAdm extends React.Component {
 
                         <FormGroup>
                             <Label for="exampleDate">Data</Label>
-                            <Input
+                            <Input 
                                 type="date"
                                 name="date"
                                 id="data"
@@ -180,15 +208,16 @@ class ListarEventosAdm extends React.Component {
                         <FormGroup>
                             <Label for="exampleText">Sala</Label>
                             <Input type="select" name="select" id="sala">
-                            {this.state.customersListSalas.map((dynamicData) =>
+                                {this.state.customersListSalas.map((dynamicData) =>
                                     <option value={dynamicData.idSala}>{dynamicData.numero}</option>
                                 )}
                             </Input>
                             <Label for="exampleNumber" id="status"></Label>
+                            <spam id="spamId"></spam>
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.cadastrar}>
+                        <Button color="success" onClick={this.atualiza}>
                             Salvar
                     </Button>{' '}
                         <Button color="danger" onClick={this.toggle()}>
