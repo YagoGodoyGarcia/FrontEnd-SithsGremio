@@ -88,13 +88,18 @@ class ListarSalas extends React.Component {
                                 <Button color="danger" size="sm" block onClick={() =>{ 
                                     axios.post(`http://localhost:8080/DeleteSala?id_sala=`+dynamicData.idSala)
                                         .then(function (response) {
-                                            console.log("Deletado");
+                                            console.log(response.data)
+                                            if(response.data != "Ok"){
+                                                
+                                                document.getElementById('status').innerHTML = 'Sala esta cadastrada em um evento';
+                                            }
                                         })
                                         .catch(function (error) {
-                                            console.log(error);
+                                            console.log(error)
                                         })
                                 }}>Remover Sala</Button>
                                 <br />
+                                <Label for="exampleNumber" id="status"></Label>
                             </Col>
                         </Card>
                     )}

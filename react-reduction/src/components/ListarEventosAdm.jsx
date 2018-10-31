@@ -74,7 +74,7 @@ class ListarEventosAdm extends React.Component {
         modal: false,
         backdrop: true,
     };
-    atualiza() {
+    atualiza = modalType => () => {
         var th = this
         let nomeEv = document.getElementById("nomeEvento").value
         let palestranteEv = document.getElementById("palestrante").value
@@ -94,14 +94,27 @@ class ListarEventosAdm extends React.Component {
                     descricao: descricaoEv,
                     palestrante: palestranteEv,
                     sala: salaEv,
+                    
                 })
                 .then(function (response) {
                     console.log("Cadastrado");
                     document.getElementById('status').innerHTML = 'Evento atualizado com sucesso';
                 })
+                
                 .catch(function (error) {
                     console.log(error);
                 });
+
+                if (!modalType) {
+                    return this.setState({
+                        modal: !this.state.modal,
+                    });
+                }
+        
+                this.setState({
+                    [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+                });
+
         } else {
             document.getElementById('status').innerHTML = 'Preencha todos os campos!';
         }
@@ -217,7 +230,7 @@ class ListarEventosAdm extends React.Component {
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.atualiza}>
+                        <Button color="success" onClick={this.atualiza()}>
                             Salvar
                     </Button>{' '}
                         <Button color="danger" onClick={this.toggle()}>
