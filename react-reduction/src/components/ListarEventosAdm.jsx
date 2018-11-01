@@ -86,45 +86,55 @@ class ListarEventosAdm extends React.Component {
         let idEv = document.getElementById("spamId").value
 
         if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
-                axios.post(`http://localhost:8080/EventoAtualiza`, {
-                    id_evento: idEv,
-                    nome: nomeEv,
-                    data: dataEv,
-                    hora: horaEv,
-                    descricao: descricaoEv,
-                    palestrante: palestranteEv,
-                    sala: salaEv,
-                    
-                })
+            axios.post(`http://localhost:8080/EventoAtualiza`, {
+                id_evento: idEv,
+                nome: nomeEv,
+                data: dataEv,
+                hora: horaEv,
+                descricao: descricaoEv,
+                palestrante: palestranteEv,
+                sala: salaEv,
+
+            })
                 .then(function (response) {
                     console.log("Cadastrado");
                     document.getElementById('status').innerHTML = 'Evento atualizado com sucesso';
                 })
-                
+
                 .catch(function (error) {
                     console.log(error);
                 });
 
-                if (!modalType) {
-                    return this.setState({
-                        modal: !this.state.modal,
-                    });
-                }
-        
-                this.setState({
-                    [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+            if (!modalType) {
+                return this.setState({
+                    modal: !this.state.modal,
                 });
+            }
+
+            this.setState({
+                [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+            });
 
         } else {
             document.getElementById('status').innerHTML = 'Preencha todos os campos!';
         }
 
     }
+    excluirEv = idEventoClick => () => {
+        console.log(idEventoClick)
+        axios.post(`http://localhost:8080/DeleteEvento?id_evento=` + idEventoClick)
+            .then(function (response) {
+                alert("Evento Deletado!");
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
     verMaisEv = idEventoClick => (modalType) => {
         var th1 = this;
         axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
             .then(function (result) {
-                document.getElementById("nomeEvento").value =  result.data.nome
+                document.getElementById("nomeEvento").value = result.data.nome
                 document.getElementById("palestrante").value = result.data.palestrante
                 document.getElementById("data").value = result.data.data
                 document.getElementById("hora").value = result.data.hora
@@ -154,6 +164,7 @@ class ListarEventosAdm extends React.Component {
                 {this.state.customersList.map((dynamicData) =>
                     <Card className="CardContainer">
                         <Col lg={12} md={6} sm={6} xs={12}>
+                            <button id="xEento" className="buttonEvento" onClick={this.excluirEv(dynamicData.idEvento)}>X</button>
                             <NumberWidget
                                 title={dynamicData.nome}
                                 number={dynamicData.data.split('-').reverse().join('/')}
@@ -164,7 +175,7 @@ class ListarEventosAdm extends React.Component {
                                 }}
                                 className="BorderCard"
                             />
-                            <Button color="success" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
+                            <Button color="success" className="verMaisEvent" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
                             <br />
                         </Col>
                     </Card>
@@ -198,7 +209,7 @@ class ListarEventosAdm extends React.Component {
 
                         <FormGroup>
                             <Label for="exampleDate">Data</Label>
-                            <Input 
+                            <Input
                                 type="date"
                                 name="date"
                                 id="data"

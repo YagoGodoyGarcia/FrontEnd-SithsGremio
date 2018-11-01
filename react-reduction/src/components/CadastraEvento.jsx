@@ -68,7 +68,7 @@ class CadastraEvento extends React.Component {
                 });
         }, 5000)
     }
-    cadastrar() {
+    cadastrar = modalType => () => {
         var th = this
         let nomeEv = document.getElementById("nomeEvento").value
         let palestranteEv = document.getElementById("palestrante").value
@@ -79,14 +79,14 @@ class CadastraEvento extends React.Component {
         let salaEv = objSala.options[objSala.selectedIndex].value;
 
         if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
-                axios.post(`http://localhost:8080/EventoRegistration`, {
-                    nome: nomeEv,
-                    data: dataEv,
-                    hora: horaEv,
-                    descricao: descricaoEv,
-                    palestrante: palestranteEv,
-                    sala: salaEv
-                })
+            axios.post(`http://localhost:8080/EventoRegistration`, {
+                nome: nomeEv,
+                data: dataEv,
+                hora: horaEv,
+                descricao: descricaoEv,
+                palestrante: palestranteEv,
+                sala: salaEv
+            })
                 .then(function (response) {
                     console.log("Cadastrado");
                     document.getElementById("nomeEvento").value = ""
@@ -94,11 +94,20 @@ class CadastraEvento extends React.Component {
                     document.getElementById("data").value = ""
                     document.getElementById("hora").value = ""
                     document.getElementById("descricao").value = ""
-                    document.getElementById('status').innerHTML = 'Cadastro realizado com sucesso';
+                    if (!modalType) {
+                        return this.setState({
+                            modal: !this.state.modal,
+                        });
+                    }
+
+                    this.setState({
+                        [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+
         } else {
             document.getElementById('status').innerHTML = 'Preencha todos os campos!';
         }
@@ -110,15 +119,19 @@ class CadastraEvento extends React.Component {
     };
 
     toggle = modalType => () => {
-        if (!modalType) {
-            return this.setState({
-                modal: !this.state.modal,
-            });
-        }
+        if (this.state.customersListSalas != "") {
+            if (!modalType) {
+                return this.setState({
+                    modal: !this.state.modal,
+                });
+            }
 
-        this.setState({
-            [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
-        });
+            this.setState({
+                [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
+            });
+        } else {
+            alert("Cadastre uma sala primeiro!");
+        }
     };
 
     render() {
@@ -188,12 +201,12 @@ class CadastraEvento extends React.Component {
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.cadastrar}>
+                        <Button color="success" onClick={this.cadastrar()}>
                             Salvar
-                    </Button>{' '}
+                        </Button>{' '}
                         <Button color="danger" onClick={this.toggle()}>
                             Cancel
-                    </Button>
+                        </Button>
                     </ModalFooter>
                 </Modal>
 

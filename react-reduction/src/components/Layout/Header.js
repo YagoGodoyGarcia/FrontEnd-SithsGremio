@@ -6,50 +6,17 @@ import {
   Navbar,
   // NavbarToggler,
   Nav,
-  NavItem,
-  NavLink,
-  Popover,
-  PopoverBody,
-  ListGroup,
-  ListGroupItem,
   Button,
 } from 'reactstrap';
 
 import {
   MdNotificationsActive,
-  MdNotificationsNone,
-  MdInsertChart,
-  MdPersonPin,
-  MdMessage,
-  MdSettingsApplications,
-  MdHelp,
   MdClearAll,
-  MdExitToApp,
 } from 'react-icons/lib/md';
 
-import Avatar from 'components/Avatar';
-import { UserCard } from 'components/Card';
-import Notifications from 'components/Notifications';
-import SearchInput from 'components/SearchInput';
-
-import withBadge from 'hocs/withBadge';
-
-import { notificationsData } from 'demos/header';
 
 const bem = bn.create('header');
 
-const MdNotificationsActiveWithBadge = withBadge({
-  size: 'md',
-  color: 'primary',
-  style: {
-    top: -10,
-    right: -10,
-    display: 'inline-flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  children: <small>5</small>,
-})(MdNotificationsActive);
 
 class Header extends React.Component {
   state = {

@@ -60,18 +60,21 @@ class ListarSalas extends React.Component {
                     });
                 });
         }, 5000)
-        // setInterval(() => {
-        //     var th2 = this;
-        //     axios.get(`http://localhost:8080/ListaSalaNDisponivel`)
-        //         .then(function (result) {
-        //             th2.setState({
-        //                 customersListN: result.data
-        //             });
-        //         });
-        // }, 5000)
-
     }
-
+    excluirSala = idSalaClick => () => {
+        axios.post(`http://localhost:8080/DeleteSala?id_sala=` + idSalaClick)
+            .then(function (response) {
+                console.log(response.data)
+                if (response.data != "Ok") {
+                    alert('Sala esta cadastrada em um evento');
+                } else {
+                    alert("Sala excluida com sucesso!");
+                }
+            })
+            .catch(function (error) {
+                console.log(error)
+            })
+    }
     render() {
         return (
             <div>
@@ -85,39 +88,13 @@ class ListarSalas extends React.Component {
                                 <CardText>
                                     Capacidade: {dynamicData.capacidade}
                                 </CardText>
-                                <Button color="danger" size="sm" block onClick={() =>{ 
-                                    axios.post(`http://localhost:8080/DeleteSala?id_sala=`+dynamicData.idSala)
-                                        .then(function (response) {
-                                            console.log(response.data)
-                                            if(response.data != "Ok"){
-                                                
-                                                document.getElementById('status').innerHTML = 'Sala esta cadastrada em um evento';
-                                            }
-                                        })
-                                        .catch(function (error) {
-                                            console.log(error)
-                                        })
-                                }}>Remover Sala</Button>
+                                <Button color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
                                 <br />
                                 <Label for="exampleNumber" id="status"></Label>
                             </Col>
                         </Card>
                     )}
                 </div>
-                {/* <div className="divAEsquerda">
-                    <br />
-                    <CardTitle>Não Disponiveis</CardTitle>
-                    {this.state.customersListN.map((dynamicData) =>
-                        <Card className="CardContainerSala">
-                            <Col md={12} sm={6} xs={12}>
-                                <CardTitle className="text-center">Sala {dynamicData.numero}</CardTitle>
-                                <CardText>
-                                    Capacidade: {dynamicData.capacidade}
-                                </CardText>
-                            </Col>
-                        </Card>
-                    )}
-                </div> */}
             </div>
         )
     }
