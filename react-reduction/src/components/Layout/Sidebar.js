@@ -4,32 +4,11 @@ import SourceLink from 'components/SourceLink';
 import React from 'react';
 import FaGithub from 'react-icons/lib/fa/github';
 import {
-  MdAccountCircle,
-  MdArrowDropDownCircle,
-  MdBorderAll,
-  MdBrush,
-  MdChromeReaderMode,
   MdDashboard,
-  MdExtension,
-  MdGroupWork,
-  MdInsertChart,
-  MdKeyboardArrowDown,
-  MdNotificationsActive,
-  MdPages,
-  MdRadioButtonChecked,
-  MdSend,
-  MdStar,
-  MdTextFields,
-  MdViewCarousel,
-  MdViewDay,
-  MdViewList,
-  MdWeb,
   MdWidgets,
 } from 'react-icons/lib/md';
 import { NavLink } from 'react-router-dom';
 import {
-  // UncontrolledTooltip,
-  Collapse,
   Nav,
   Navbar,
   NavItem,
@@ -42,16 +21,6 @@ const sidebarBackground = {
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
 };
-const pageContents = [
-  { to: '/login', name: 'login / signup', exact: false, Icon: MdAccountCircle },
-  {
-    to: '/login-modal',
-    name: 'login modal',
-    exact: false,
-    Icon: MdViewCarousel,
-  },
-];
-
 const navItems = [
   { to: '/', name: 'EventosAdm', exact: true, Icon: MdDashboard },
   { to: '/EventosAlunos', name: 'EventosAlunos', exact: true, Icon: MdDashboard },

@@ -1,53 +1,27 @@
 import React from 'react';
 import axios from 'axios';
-import { getColor } from 'utils/colors';
-
 import {
     Card,
-    Row,
     Col,
     Modal,
     ModalBody,
     ModalFooter,
     ModalHeader,
     Button,
-    CardText,
-    CardTitle,
-    Form,
     FormGroup,
     Label,
     Input,
-    FormText,
-    FormFeedback,
+    Table
 } from 'reactstrap';
+import { NumberWidget } from 'components/Widget';
 
-import {
-    MdInsertChart,
-    MdBubbleChart,
-    MdPieChart,
-    MdShowChart,
-    MdPersonPin,
-    MdRateReview,
-    MdThumbUp,
-    MdShare,
-} from 'react-icons/lib/md';
-
-import { NumberWidget, IconWidget } from 'components/Widget';
-
-
-const today = new Date();
-const lastWeek = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 7
-);
-var idEV
 class ListarEventosAdm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customersList: [],
             customersListSalas: [],
+            customerChamada: [],
         };
     }
     componentDidMount() {
@@ -70,12 +44,8 @@ class ListarEventosAdm extends React.Component {
                 });
         }, 5000)
     }
-    state = {
-        modal: false,
-        backdrop: true,
-    };
+
     atualiza = modalType => () => {
-        var th = this
         let nomeEv = document.getElementById("nomeEvento").value
         let palestranteEv = document.getElementById("palestrante").value
         let dataEv = document.getElementById("data").value
@@ -85,7 +55,7 @@ class ListarEventosAdm extends React.Component {
         let salaEv = objSala.options[objSala.selectedIndex].value;
         let idEv = document.getElementById("spamId").value
 
-        if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
+        if (nomeEv !== "" && palestranteEv !== "" && dataEv !== "" && horaEv !== "" && descricaoEv !== "" && salaEv !== "") {
             axios.post(`http://localhost:8080/EventoAtualiza`, {
                 id_evento: idEv,
                 nome: nomeEv,
@@ -131,7 +101,6 @@ class ListarEventosAdm extends React.Component {
             })
     }
     verMaisEv = idEventoClick => (modalType) => {
-        var th1 = this;
         axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
             .then(function (result) {
                 document.getElementById("nomeEvento").value = result.data.nome
@@ -141,9 +110,35 @@ class ListarEventosAdm extends React.Component {
                 document.getElementById("descricao").value = result.data.descricao
                 document.getElementById("sala").value = result.data.sala.idSala
                 document.getElementById("spamId").value = result.data.idEvento
+
             });
         this.setState({
             modal: !this.state.modal,
+        });
+    }
+    state = {
+        modal: false,
+        backdrop: true,
+        modalCM: false,
+    };
+    VerChamada = idEventoClick => () => {
+        setInterval(() => {
+            let th = this
+            axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
+                .then(function (result) {
+                    th.setState({
+                        customerChamada: result.data.alunos
+                    });
+                    document.getElementById("tituloChamada").innerHTML = "Chamada do Evento: " + result.data.nome
+                });
+        }, 5000)
+        this.setState({
+            modalCM: !this.state.modalCM,
+        });
+    }
+    chamada = () => {
+        this.setState({
+            modalCM: !this.state.modalCM,
         });
     }
     toggle = modalType => () => {
@@ -170,12 +165,13 @@ class ListarEventosAdm extends React.Component {
                                 number={dynamicData.data.split('-').reverse().join('/')}
                                 color="secondary"
                                 progress={{
-                                    value: 60,
+                                    value: ((30 * dynamicData.capacidade) / 100) // criar função para calcular ,
                                     label: 'Vagas Ocupadas',
                                 }}
                                 className="BorderCard"
                             />
-                            <Button color="success" className="verMaisEvent" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
+                            <Button color="success" className="verMaisEvent" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Informações</Button>
+                            <Button color="success" className="verMaisEvent" size="sm" block onClick={this.VerChamada(dynamicData.idEvento)} >Chamada</Button>
                             <br />
                         </Col>
                     </Card>
@@ -245,6 +241,41 @@ class ListarEventosAdm extends React.Component {
                             Salvar
                     </Button>{' '}
                         <Button color="danger" onClick={this.toggle()}>
+                            Cancel
+                    </Button>
+                    </ModalFooter>
+                </Modal>
+
+                <Modal
+                    isOpen={this.state.modalCM}
+                    toggle={this.chamada}
+                    className={this.props.className}>
+                    <ModalHeader toggle={this.chamada} id="tituloChamada">Chamada </ModalHeader>
+                    <ModalBody>
+                        <Table >
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>RA</th>
+                                    <th>E-mail</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.customerChamada.map((dynamicData) =>
+                                    <tr>
+                                        <td>{dynamicData.ra}</td>
+                                        <td>{dynamicData.nome}</td>
+                                        <td>{dynamicData.email}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </Table>
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="success" onClick={this.chamada}>
+                            Salvar
+                    </Button>{' '}
+                        <Button color="danger" onClick={this.chamada}>
                             Cancel
                     </Button>
                     </ModalFooter>

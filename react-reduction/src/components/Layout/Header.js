@@ -10,7 +10,6 @@ import {
 } from 'reactstrap';
 
 import {
-  MdNotificationsActive,
   MdClearAll,
 } from 'react-icons/lib/md';
 
@@ -49,8 +48,6 @@ class Header extends React.Component {
   };
 
   render() {
-    const { isNotificationConfirmed } = this.state;
-
     return (
       <Navbar light expand className={bem.b('bg-white')}>
         <Nav navbar className="mr-2">

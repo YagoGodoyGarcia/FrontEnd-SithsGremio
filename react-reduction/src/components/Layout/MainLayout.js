@@ -1,11 +1,5 @@
 import { Content, Footer, Header, Sidebar } from 'components/Layout';
 import React from 'react';
-import {
-  MdImportantDevices,
-  // MdCardGiftcard,
-  MdLoyalty,
-} from 'react-icons/lib/md';
-
 
 class MainLayout extends React.Component {
   static isSidebarOpen() {

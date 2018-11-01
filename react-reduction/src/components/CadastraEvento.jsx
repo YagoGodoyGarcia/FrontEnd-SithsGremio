@@ -1,46 +1,16 @@
 import React from 'react';
 import axios from 'axios';
-import { getColor } from 'utils/colors';
 
 import {
-    Card,
-    Row,
-    Col,
     Modal,
     ModalBody,
     ModalFooter,
     ModalHeader,
     Button,
-    CardText,
-    CardTitle,
-    Form,
     FormGroup,
     Label,
-    Input,
-    FormText,
-    FormFeedback,
+    Input
 } from 'reactstrap';
-
-import {
-    MdInsertChart,
-    MdBubbleChart,
-    MdPieChart,
-    MdShowChart,
-    MdPersonPin,
-    MdRateReview,
-    MdThumbUp,
-    MdShare,
-} from 'react-icons/lib/md';
-
-import { NumberWidget, IconWidget } from 'components/Widget';
-
-
-const today = new Date();
-const lastWeek = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate() - 7
-);
 
 class CadastraEvento extends React.Component {
     constructor(props) {
@@ -94,20 +64,15 @@ class CadastraEvento extends React.Component {
                     document.getElementById("data").value = ""
                     document.getElementById("hora").value = ""
                     document.getElementById("descricao").value = ""
-                    if (!modalType) {
-                        return this.setState({
-                            modal: !this.state.modal,
-                        });
-                    }
-
-                    this.setState({
-                        [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
-                    });
+                    
+                    
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
-
+                this.setState({
+                    modal: !this.state.modal,
+                });
         } else {
             document.getElementById('status').innerHTML = 'Preencha todos os campos!';
         }
@@ -118,17 +83,11 @@ class CadastraEvento extends React.Component {
         backdrop: true,
     };
 
-    toggle = modalType => () => {
+    toggle  = () => {
         if (this.state.customersListSalas != "") {
-            if (!modalType) {
-                return this.setState({
-                    modal: !this.state.modal,
-                });
-            }
-
             this.setState({
-                [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
-            });
+                    modal: !this.state.modal,
+                });                
         } else {
             alert("Cadastre uma sala primeiro!");
         }
@@ -137,16 +96,13 @@ class CadastraEvento extends React.Component {
     render() {
         return (
             <div>
-
-
-                <Button color="success" size="sm" onClick={this.toggle()}>Novo Evento</Button>
-
-
+                <Button color="success" size="sm" onClick={this.toggle}>Novo Evento</Button>
                 <Modal
+                    id="modalSala"
                     isOpen={this.state.modal}
-                    toggle={this.toggle()}
+                    toggle={this.toggle}
                     className={this.props.className}>
-                    <ModalHeader toggle={this.toggle()}>Evento</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>Evento</ModalHeader>
                     <ModalBody>
                         <FormGroup>
                             <Label for="exampleUrl">Nome do Evento</Label>
@@ -203,8 +159,8 @@ class CadastraEvento extends React.Component {
                     <ModalFooter>
                         <Button color="success" onClick={this.cadastrar()}>
                             Salvar
-                        </Button>{' '}
-                        <Button color="danger" onClick={this.toggle()}>
+                        </Button>
+                        <Button color="danger" onClick={this.toggle}>
                             Cancel
                         </Button>
                     </ModalFooter>
