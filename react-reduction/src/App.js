@@ -2,10 +2,11 @@ import GAListener from 'components/GAListener';
 import { LayoutRoute, MainLayout } from 'components/Layout';
 import EventosLista from 'pages/ListaDeEventos';
 import EventosParaAlunos from 'pages/EventosParaAlunos';
+import Inicio from 'pages/Inicio'
 import Salas from 'pages/Salas';
 import React from 'react';
 import componentQueries from 'react-component-queries';
-import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import './styles/reduction.css';
 import './styles/CardEventos.css';
 
@@ -43,7 +44,12 @@ class App extends React.Component {
               layout={MainLayout}
               component={Salas}
             />
-            <Redirect to="/" />
+            <LayoutRoute
+              exact
+              path="/Inicio"
+              layout={MainLayout}
+              component={Inicio}
+            />
           </Switch>
         </GAListener>
       </BrowserRouter>

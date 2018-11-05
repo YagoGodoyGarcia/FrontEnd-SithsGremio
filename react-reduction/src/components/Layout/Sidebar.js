@@ -23,7 +23,6 @@ const sidebarBackground = {
 };
 const navItems = [
   { to: '/', name: 'EventosAdm', exact: true, Icon: MdDashboard },
-  { to: '/EventosAlunos', name: 'EventosAlunos', exact: true, Icon: MdDashboard },
   { to: '/Salas', name: 'Salas', exact: true, Icon: MdWidgets },
 ];
 
@@ -45,7 +44,7 @@ class Sidebar extends React.Component {
       };
     });
   };
-
+  
   render() {
     return (
       <aside className={bem.b()} data-image={sidebarBgImage}>

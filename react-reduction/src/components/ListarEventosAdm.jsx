@@ -122,7 +122,7 @@ class ListarEventosAdm extends React.Component {
         modalCM: false,
     };
     VerChamada = idEventoClick => () => {
-        setInterval(() => {
+        
             let th = this
             axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
                 .then(function (result) {
@@ -131,7 +131,7 @@ class ListarEventosAdm extends React.Component {
                     });
                     document.getElementById("tituloChamada").innerHTML = "Chamada do Evento: " + result.data.nome
                 });
-        }, 5000)
+        
         this.setState({
             modalCM: !this.state.modalCM,
         });
@@ -152,7 +152,7 @@ class ListarEventosAdm extends React.Component {
             [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
         });
     };
-
+   
     render() {
         return (
             <div>
@@ -161,13 +161,15 @@ class ListarEventosAdm extends React.Component {
                         <Col lg={12} md={6} sm={6} xs={12}>
                             <button id="xEento" className="buttonEvento" onClick={this.excluirEv(dynamicData.idEvento)}>X</button>
                             <NumberWidget
+                                id="cardEvento"
                                 title={dynamicData.nome}
                                 number={dynamicData.data.split('-').reverse().join('/')}
                                 color="secondary"
                                 progress={{
-                                    value: ((30 * dynamicData.capacidade) / 100) // criar função para calcular ,
+                                    value: ((dynamicData.sala.capacidade * dynamicData.alunos.length) / 100),
                                     label: 'Vagas Ocupadas',
-                                }}
+                                }
+                            }
                                 className="BorderCard"
                             />
                             <Button color="success" className="verMaisEvent" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Informações</Button>
@@ -273,11 +275,8 @@ class ListarEventosAdm extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="success" onClick={this.chamada}>
-                            Salvar
-                    </Button>{' '}
-                        <Button color="danger" onClick={this.chamada}>
-                            Cancel
-                    </Button>
+                            Baixar
+                        </Button>
                     </ModalFooter>
                 </Modal>
             </div>

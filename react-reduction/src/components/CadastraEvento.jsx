@@ -47,47 +47,51 @@ class CadastraEvento extends React.Component {
         let descricaoEv = document.getElementById("descricao").value
         let objSala = document.getElementById("sala");
         let salaEv = objSala.options[objSala.selectedIndex].value;
+        let atual = new Date()
+        if (dataEv.ge < atual.getFullYear()) {
+            alert("Data Invalida Fdp!")
 
-        if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
-            axios.post(`http://localhost:8080/EventoRegistration`, {
-                nome: nomeEv,
-                data: dataEv,
-                hora: horaEv,
-                descricao: descricaoEv,
-                palestrante: palestranteEv,
-                sala: salaEv
-            })
-                .then(function (response) {
-                    console.log("Cadastrado");
-                    document.getElementById("nomeEvento").value = ""
-                    document.getElementById("palestrante").value = ""
-                    document.getElementById("data").value = ""
-                    document.getElementById("hora").value = ""
-                    document.getElementById("descricao").value = ""
-                    
-                    
+        } else {
+            if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
+                axios.post(`http://localhost:8080/EventoRegistration`, {
+                    nome: nomeEv,
+                    data: dataEv,
+                    hora: horaEv,
+                    descricao: descricaoEv,
+                    palestrante: palestranteEv,
+                    sala: salaEv
                 })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(function (response) {
+                        console.log("Cadastrado");
+                        document.getElementById("nomeEvento").value = ""
+                        document.getElementById("palestrante").value = ""
+                        document.getElementById("data").value = ""
+                        document.getElementById("hora").value = ""
+                        document.getElementById("descricao").value = ""
+
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
                 this.setState({
                     modal: !this.state.modal,
                 });
-        } else {
-            document.getElementById('status').innerHTML = 'Preencha todos os campos!';
+            } else {
+                document.getElementById('status').innerHTML = 'Preencha todos os campos!';
+            }
         }
-
     }
     state = {
         modal: false,
         backdrop: true,
     };
 
-    toggle  = () => {
+    toggle = () => {
         if (this.state.customersListSalas != "") {
             this.setState({
-                    modal: !this.state.modal,
-                });                
+                modal: !this.state.modal,
+            });
         } else {
             alert("Cadastre uma sala primeiro!");
         }
