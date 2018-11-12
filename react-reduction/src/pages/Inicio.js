@@ -9,22 +9,18 @@ import {
   CardTitle,
   CardText
 } from 'reactstrap';
-
+import {browserHistory} from 'react-router';
 class Inicio extends React.Component {
 
-  teste(){
-      console.log("Hello World");
-      let now = new Date()
-
-      console.log("Hoje é " + now.getDay() + ", " + now.getDate() + " de " + now.getMonth() + " de " + now.getFullYear());
+  Chamada(){
+    browserHistory.push('/LoginG')
   }
   render() {
     return (
       <Page>
         <Row>
-
           <Col md={6} sm={6} xs={12}>
-            <Card inverse className="text-center cardInicio" onClick={this.teste} >
+            <Card inverse className="text-center cardInicio" onClick={this.Chamada} >
               <CardImgOverlay>
                 <CardTitle>Card Title</CardTitle>
                 <CardText>inversed card</CardText>
@@ -46,7 +42,7 @@ class Inicio extends React.Component {
                 <CardText>
                   <small className="text-muted">
                     Grêmio Eventos
-                      </small>
+                  </small>
                 </CardText>
               </CardImgOverlay>
             </Card>

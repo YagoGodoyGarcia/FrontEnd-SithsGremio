@@ -1,9 +1,4 @@
-import GAListener from 'components/GAListener';
-import { LayoutRoute, MainLayout } from 'components/Layout';
-import EventosLista from 'pages/ListaDeEventos';
-import EventosParaAlunos from 'pages/EventosParaAlunos';
-import Inicio from 'pages/Inicio'
-import Salas from 'pages/Salas';
+import Inicio from 'pages/Inicio';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Switch } from 'react-router-dom';
@@ -17,42 +12,10 @@ const getBasename = () => {
 class App extends React.Component {
   render() {
     return (
-      <BrowserRouter basename={getBasename()}>
-        <GAListener>
-          <Switch>
-            <LayoutRoute
-              exact
-              path="/"
-              layout={MainLayout}
-              component={EventosLista}
-            />
-            <LayoutRoute
-              exact
-              path="/Eventos"
-              layout={MainLayout}
-              component={EventosLista}
-            />
-            <LayoutRoute
-              exact
-              path="/EventosAlunos"
-              layout={MainLayout}
-              component={EventosParaAlunos}
-            />
-            <LayoutRoute
-              exact
-              path="/Salas"
-              layout={MainLayout}
-              component={Salas}
-            />
-            <LayoutRoute
-              exact
-              path="/Inicio"
-              layout={MainLayout}
-              component={Inicio}
-            />
-          </Switch>
-        </GAListener>
-      </BrowserRouter>
+      <div>
+        <Inicio/>
+        {this.props.children}
+      </div>
     );
   }
 }

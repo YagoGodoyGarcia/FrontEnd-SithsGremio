@@ -3,7 +3,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
 
-class AuthForm extends React.Component {
+class TelaLogin extends React.Component {
   get isLogin() {
     return this.props.authState === STATE_LOGIN;
   }
@@ -36,6 +36,25 @@ class AuthForm extends React.Component {
     return buttonText;
   }
 
+  auth() {
+    console.log("Click")  
+    var th = this
+    let emailAt = document.getElementById('email').value
+    let senhaAt = document.getElementById('senha').value
+    document.cookie = "assadas"
+    axios.post(`http://localhost:8080/LoginAuth`, {
+      email: emailAt,
+      senha: senhaAt
+    })
+      .then(function (response) {
+        console.log("Cookie Coletado");
+        localStorage.setItem('auth', response.data.nome);
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   render() {
     const {
@@ -71,7 +90,7 @@ class AuthForm extends React.Component {
           size="lg"
           className="bg-gradient-theme-left border-0"
           block
-          onClick={this.handleSubmit}>
+          onClick={this.auth}>
           {this.renderButtonText()}
         </Button>
 
@@ -79,7 +98,7 @@ class AuthForm extends React.Component {
           <h6>or</h6>
           <h6>
             {this.isSignup ? (
-              <a href="#login" onClick={this.changeAuthState(STATE_LOGIN)}>
+              <a href="#login" onClick={this.auth}>
                 Login
               </a>
             ) : (
@@ -99,7 +118,7 @@ class AuthForm extends React.Component {
 export const STATE_LOGIN = 'LOGIN';
 export const STATE_SIGNUP = 'SIGNUP';
 
-AuthForm.propTypes = {
+TelaLogin.propTypes = {
   authState: PropTypes.oneOf([STATE_LOGIN, STATE_SIGNUP]).isRequired,
   showLogo: PropTypes.bool,
   usernameLabel: PropTypes.string,
@@ -111,7 +130,7 @@ AuthForm.propTypes = {
   onLogoClick: PropTypes.func,
 };
 
-AuthForm.defaultProps = {
+TelaLogin.defaultProps = {
   authState: 'LOGIN',
   showLogo: true,
   usernameLabel: 'Email',
@@ -132,4 +151,4 @@ AuthForm.defaultProps = {
   onLogoClick: () => { },
 };
 
-export default AuthForm;
+export default TelaLogin;

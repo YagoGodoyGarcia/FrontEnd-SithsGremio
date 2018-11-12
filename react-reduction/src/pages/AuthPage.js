@@ -1,4 +1,4 @@
-import AuthForm, { STATE_LOGIN } from 'components/AuthForm';
+import TelaLogin, { STATE_LOGIN } from 'components/TelaLogin';
 import React from 'react';
 import { Card, Col, Row } from 'reactstrap';
 
@@ -25,7 +25,7 @@ class AuthPage extends React.Component {
         }}>
         <Col md={6} lg={4}>
           <Card body>
-            <AuthForm
+            <TelaLogin
               authState={this.props.authState}
               onChangeAuthState={this.handleAuthState}
               onLogoClick={this.handleLogoClick}
