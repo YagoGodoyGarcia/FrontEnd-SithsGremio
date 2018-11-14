@@ -13,6 +13,7 @@ class Salas extends React.Component {
         <BtnCadastrar/>
         <SalasList/>
       </Page>
+      
     );
   }
 }

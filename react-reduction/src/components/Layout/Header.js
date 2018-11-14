@@ -7,6 +7,7 @@ import {
   // NavbarToggler,
   Nav,
   Button,
+  CardTitle
 } from 'reactstrap';
 
 import {
@@ -43,19 +44,18 @@ class Header extends React.Component {
   handleSidebarControlButton = event => {
     event.preventDefault();
     event.stopPropagation();
-
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
-
   render() {
     return (
-      <Navbar light expand className={bem.b('bg-white')}>
+      <Navbar light className={bem.b('bg-white')}>
         <Nav navbar className="mr-2">
           <Button outline onClick={this.handleSidebarControlButton}>
             <MdClearAll size={25} />
           </Button>
-        </Nav>
-      </Navbar>  
+        </Nav> 
+        <CardTitle id="ola" innerHTML="Ola">{"Olá "+localStorage.getItem('nome')}</CardTitle>
+      </Navbar>
     );
   }
 }
