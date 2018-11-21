@@ -48,7 +48,7 @@ class ListarEventosAlunos extends React.Component {
                 document.getElementById("hora").innerHTML = " Hora: " + result.data.hora
                 document.getElementById("descricao").innerHTML = result.data.descricao
                 document.getElementById("sala").innerHTML = "Sala: " + result.data.sala.idSala
-                //document.getElementById("spamId").value = result.data.idEvento
+                document.getElementById("participar").value = result.data.idEvento               
             });
         this.setState({
             modal: !this.state.modal,
@@ -59,6 +59,21 @@ class ListarEventosAlunos extends React.Component {
             modal: !this.state.modal,
         });
     };
+
+    entrarNoEvento() {
+        let idEvento = document.getElementById("participar").value
+        let idAuno = localStorage.getItem("idAluno")
+        axios.post(`http://localhost:8080/AlunoNoEvento`, {
+            id_evento: idEvento,
+            id_aluno: idAuno
+        })
+            .then(function (response) {
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
 
     render() {
         return (
@@ -102,8 +117,8 @@ class ListarEventosAlunos extends React.Component {
                         <Label id="sala"></Label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.toggle}>
-                            Participar
+                        <Button color="success" id="participar" onClick={this.entrarNoEvento}>
+                            Participar               ?
                         </Button>
                         <Button color="danger" onClick={this.toggle}>
                             Sair

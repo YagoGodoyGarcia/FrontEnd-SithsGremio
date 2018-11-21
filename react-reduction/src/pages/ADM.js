@@ -1,5 +1,3 @@
-
-
 import GAListener from 'components/GAListener';
 import { LayoutRoute, MainLayout } from 'components/Layout';
 import React from 'react';
@@ -13,7 +11,7 @@ const getBasename = () => {
   };
 class ADM extends React.Component {
     render() {
-        if(localStorage.length == 0){
+        if(localStorage.getItem("nome") == null){
             browserHistory.push('/Login')
         }
         return (

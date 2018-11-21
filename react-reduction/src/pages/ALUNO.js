@@ -1,11 +1,8 @@
-
-
 import GAListener from 'components/GAListener';
 import { LayoutRoute, MainLayout } from 'components/Layout';
 import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
-import Salas from 'pages/Salas';
 import EventosParaAlunos from 'pages/EventosParaAlunos';
 import {browserHistory} from 'react-router';
 
@@ -14,7 +11,7 @@ const getBasename = () => {
   };
 class ALUNO extends React.Component {
     render() {
-        if(localStorage.length == 0){
+        if(localStorage.getItem("nome") == null){
             browserHistory.push('/Login')
         }
         return (

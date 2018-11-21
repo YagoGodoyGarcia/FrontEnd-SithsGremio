@@ -47,7 +47,7 @@ class TelaLogin extends React.Component {
       senha: senhaAt
     })
       .then(function (response) {
-        localStorage.setItem('Info', response.data.idAluno);
+        localStorage.setItem('idAluno', response.data.idAluno);
         localStorage.setItem('nome',  response.data.nome);
         localStorage.setItem('ra', response.data.ra);
         localStorage.setItem('email', response.data.email);
@@ -73,7 +73,6 @@ class TelaLogin extends React.Component {
       confirmPasswordLabel,
       confirmPasswordInputProps,
       children,
-      onLogoClick,
     } = this.props;
     localStorage.clear();
     return (
