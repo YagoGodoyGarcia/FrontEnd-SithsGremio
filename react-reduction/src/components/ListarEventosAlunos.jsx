@@ -21,6 +21,7 @@ class ListarEventosAlunos extends React.Component {
         super(props);
         this.state = {
             customersList: [],
+            customersListPresente: [],
             customersListSalas: [],
         };
     }
@@ -48,7 +49,7 @@ class ListarEventosAlunos extends React.Component {
                 document.getElementById("hora").innerHTML = " Hora: " + result.data.hora
                 document.getElementById("descricao").innerHTML = result.data.descricao
                 document.getElementById("sala").innerHTML = "Sala: " + result.data.sala.idSala
-                document.getElementById("participar").value = result.data.idEvento               
+                document.getElementById("participar").value = result.data.idEvento
             });
         this.setState({
             modal: !this.state.modal,
@@ -68,7 +69,7 @@ class ListarEventosAlunos extends React.Component {
             id_aluno: idAuno
         })
             .then(function (response) {
-                
+
             })
             .catch(function (error) {
                 console.log(error);
