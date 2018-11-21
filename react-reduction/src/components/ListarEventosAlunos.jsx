@@ -10,7 +10,8 @@ import {
     ModalHeader,
     Button,
     Label,
-    CardText
+    CardText,
+    CardBody
 } from 'reactstrap';
 
 import { NumberWidget } from 'components/Widget';
@@ -42,9 +43,9 @@ class ListarEventosAlunos extends React.Component {
         axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
             .then(function (result) {
                 document.getElementById("nomeEvento").innerHTML = result.data.nome
-                document.getElementById("palestrante").innerHTML = "Palestrate: "+result.data.palestrante
-                document.getElementById("data").innerHTML = "Data: "+ result.data.data.split('-').reverse().join('/')
-                document.getElementById("hora").innerHTML = " Hora: " +result.data.hora
+                document.getElementById("palestrante").innerHTML = "Palestrate: " + result.data.palestrante
+                document.getElementById("data").innerHTML = "Data: " + result.data.data.split('-').reverse().join('/')
+                document.getElementById("hora").innerHTML = " Hora: " + result.data.hora
                 document.getElementById("descricao").innerHTML = result.data.descricao
                 document.getElementById("sala").innerHTML = "Sala: " + result.data.sala.idSala
                 //document.getElementById("spamId").value = result.data.idEvento
@@ -84,25 +85,28 @@ class ListarEventosAlunos extends React.Component {
                 <Modal
                     isOpen={this.state.modal}
                     toggle={this.toggle}
-                    className={this.props.className}>                    
+                    className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>
-                                <Label  id="nomeEvento"></Label>
+                        <Label id="nomeEvento"></Label>
                     </ModalHeader>
                     <ModalBody>
-                        <Label id="palestrante"></Label> <p/>
+                        <Label id="palestrante"></Label> <p />
                         <Label>Descrição: </Label>
-                        <CardText id="descricao" className="campodescrição">
-                        </CardText>
-                        <Label id="data"></Label> <p/>
-                        <Label id="hora"></Label> <p/>
+                        <CardBody className="term-style">
+                            <CardText id="descricao" className="register">
+
+                            </CardText>
+                        </CardBody>
+                        <Label id="data"></Label> <p />
+                        <Label id="hora"></Label> <p />
                         <Label id="sala"></Label>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="success" onClick={this.toggle}>
-                                Participar
+                            Participar
                         </Button>
                         <Button color="danger" onClick={this.toggle}>
-                                Sair
+                            Sair
                         </Button>
                     </ModalFooter>
                 </Modal>

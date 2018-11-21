@@ -1,7 +1,6 @@
 import Inicio from 'pages/Inicio';
 import React from 'react';
 import componentQueries from 'react-component-queries';
-import { BrowserRouter, Switch } from 'react-router-dom';
 import './styles/reduction.css';
 import './styles/CardEventos.css';
 

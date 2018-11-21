@@ -54,3 +54,11 @@
 .loginStyle{
     width: 20%;
 }
+.menu{
+    background: red;
+    width: 50%;
+}
+.term-style{
+    height: 35.9vh;
+    overflow: auto;
+  }

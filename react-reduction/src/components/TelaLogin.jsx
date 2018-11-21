@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
-
+import {browserHistory} from 'react-router';
 class TelaLogin extends React.Component {
   get isLogin() {
     return this.props.authState === STATE_LOGIN;
@@ -35,22 +35,30 @@ class TelaLogin extends React.Component {
 
     return buttonText;
   }
-
+ 
   auth() {
-    console.log("Click")  
+    console.log("Click")
     var th = this
     let emailAt = document.getElementById('email').value
     let senhaAt = document.getElementById('senha').value
-    document.cookie = "assadas"
+    
     axios.post(`http://localhost:8080/LoginAuth`, {
       email: emailAt,
       senha: senhaAt
     })
       .then(function (response) {
-        console.log("Cookie Coletado");
-        localStorage.setItem('auth', response.data.nome);
+        localStorage.setItem('Info', response.data.idAluno);
+        localStorage.setItem('nome',  response.data.nome);
+        localStorage.setItem('ra', response.data.ra);
+        localStorage.setItem('email', response.data.email);
+        localStorage.setItem('senha', response.data.senha);
+        localStorage.setItem('permissao', response.data.nivelPermissao);     
+        if(localStorage.getItem('permissao') == 2){
+          browserHistory.push('/ADM')
+        }else{
+          browserHistory.push('/ALUNO')
+        }
       })
-
       .catch(function (error) {
         console.log(error);
       });
@@ -58,7 +66,6 @@ class TelaLogin extends React.Component {
 
   render() {
     const {
-      showLogo,
       usernameLabel,
       usernameInputProps,
       passwordLabel,
@@ -68,7 +75,7 @@ class TelaLogin extends React.Component {
       children,
       onLogoClick,
     } = this.props;
-
+    localStorage.clear();
     return (
       <Form onSubmit={this.handleSubmit}>
         <FormGroup>

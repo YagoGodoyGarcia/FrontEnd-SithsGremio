@@ -13,19 +13,18 @@ import {browserHistory} from 'react-router';
 class Inicio extends React.Component {
 
   Chamada(){
-    browserHistory.push('/LoginG')
+    browserHistory.push('/Login')
   }
   render() {
     return (
       <Page>
         <Row>
           <Col md={6} sm={6} xs={12}>
-            <Card inverse className="text-center cardInicio" onClick={this.Chamada} >
+            <Card inverse className="text-center cardInicio"  >
               <CardImgOverlay>
                 <CardTitle>Card Title</CardTitle>
                 <CardText>inversed card</CardText>
-                <CardText>
-                      
+                <CardText>                      
                         <small className="text-muted"  id="lojaCard">
                           Loja do Grêmio
                         </small>
@@ -35,7 +34,7 @@ class Inicio extends React.Component {
           </Col>
 
           <Col md={6} sm={6} xs={12}>
-            <Card inverse className="text-center cardInicio" id="eventoCard">
+            <Card inverse className="text-center cardInicio" onClick={this.Chamada}>
               <CardImgOverlay>
                 <CardTitle>Card Title</CardTitle>
                 <CardText>inversed card</CardText>
