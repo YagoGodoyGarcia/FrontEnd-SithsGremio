@@ -144,7 +144,7 @@ class ListarEventosAlunos extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button color="success" id="participar" onClick={this.entrarNoEvento}>
-                            Participar               ?
+                            Participar
                         </Button>
                         <Button color="danger" onClick={this.toggle}>
                             Sair
