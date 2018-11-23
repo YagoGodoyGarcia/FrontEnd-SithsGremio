@@ -19,9 +19,7 @@ import { NumberWidget } from 'components/Widget';
 var ListaPresent = [];
 var EventoPresent = [];
 class ListarEventosAlunos extends React.Component {
-
-
-    constructor(props) {
+   constructor(props) {
         super(props);
         this.state = {
             customersList: [],

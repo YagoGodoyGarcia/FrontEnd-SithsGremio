@@ -109,10 +109,10 @@ class CadastraEvento extends React.Component {
                     <ModalHeader toggle={this.toggle}>Evento</ModalHeader>
                     <ModalBody>
                         <FormGroup>
-                            <Label for="exampleUrl">Nome do Evento</Label>
+                            <Label for="text">Nome do Evento</Label>
                             <Input
-                                type="url"
-                                name="url"
+                                type="text"
+                                name="text"
                                 id="nomeEvento"
                                 placeholder="Digite o nome"
                             />
@@ -121,8 +121,8 @@ class CadastraEvento extends React.Component {
                         <FormGroup>
                             <Label for="exampleUrl">Palestrante</Label>
                             <Input
-                                type="url"
-                                name="url"
+                                type="text"
+                                name="text"
                                 id="palestrante"
                                 placeholder="Digite o nome"
                             />
