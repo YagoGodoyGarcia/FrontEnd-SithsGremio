@@ -16,12 +16,15 @@ import {
 
 import { NumberWidget } from 'components/Widget';
 
+var ListaPresent = [];
+var EventoPresent = [];
 class ListarEventosAlunos extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
             customersList: [],
-            customersListPresente: [],
             customersListSalas: [],
         };
     }
@@ -34,6 +37,28 @@ class ListarEventosAlunos extends React.Component {
                         customersList: result.data
                     });
                 });
+
+            if (EventoPresent.length == 0 || EventoPresent == undefined) {
+                this.state.customersList.map(function (element, i) {
+                    for (var i = 0; i < element.alunos.length; i++) {
+                        if (element.alunos[i].idAluno) {
+                            if (element.alunos[i].idAluno != localStorage.idAluno) {
+                                ListaPresent.push(element.idEvento)
+                            }
+                        }
+                    }
+
+                }
+                )
+                console.log(ListaPresent)
+                var th = this;
+                for (var i = 0; i < ListaPresent.length; i++) {
+                    axios.get(`http://localhost:8080/OneEvento?id_evento=` + ListaPresent[i])
+                        .then(function (result) {
+                            EventoPresent.push(result.data)
+                        });
+                }
+            }
         }, 5000)
     }
     state = {
@@ -79,7 +104,8 @@ class ListarEventosAlunos extends React.Component {
     render() {
         return (
             <div>
-                {this.state.customersList.map((dynamicData) =>
+
+                {EventoPresent.map((dynamicData) =>
                     <Card className="CardContainer">
                         <Col lg={12} md={6} sm={6} xs={12}>
                             <NumberWidget
@@ -96,7 +122,6 @@ class ListarEventosAlunos extends React.Component {
                             <br />
                         </Col>
                     </Card>
-
                 )}
                 <Modal
                     isOpen={this.state.modal}
