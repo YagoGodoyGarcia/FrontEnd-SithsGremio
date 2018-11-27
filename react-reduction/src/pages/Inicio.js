@@ -34,14 +34,12 @@ class Inicio extends React.Component {
             </Card>
           </Col>
 
-          <Col md={6} sm={6} xs={12}>
+          <Col className="card-item">
             <Card inverse className="text-center cardInicio" onClick={this.Chamada}>
-            <img className="teste"src={eventos}/>
+            <img className="card-item"src={eventos}/>
               <CardImgOverlay>
-                <CardTitle>
-                <small className="text-muted">
-                    Grêmio Eventos
-                </small>
+              <CardTitle className="text-lojaL">
+                  <label className="text-titleR"  id="lojaCard">Eventos</label>
                 </CardTitle>
               </CardImgOverlay>
             </Card>

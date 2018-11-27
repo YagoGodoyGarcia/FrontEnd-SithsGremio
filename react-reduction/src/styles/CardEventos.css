@@ -49,7 +49,12 @@
     padding: 2%;
 }
 .cardInicio{
-    height: 550px;
+    height: 723px;
+}
+.card-item{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-bottom: 0px !important
 }
 .loginStyle{
     width: 20%;
@@ -71,12 +76,18 @@
     height: 100%;
 }
 .body-inicio{
-    padding: 30px
 }
 #root{
     background-image: linear-gradient(black, white);
 }
 .text-title{
+    display: block;
+    transition: 2s;
+    color: transparent;
+    padding-top: 15px;
+
+}
+.text-titleR{
     display: block;
     transition: 2s;
     color: transparent;
@@ -89,7 +100,15 @@
     font-weight: bold;
     height: 50px;
     transition: 3s;
-
+    padding-right: 120px;
+}
+.text-titleR:hover{
+    display: block;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    transition: 3s;
+    padding-right: 120px;
 }
 .text-loja{
     background: black;
@@ -100,7 +119,7 @@
     width: 3px;
     border: 2px solid;
     border-radius: 0px 0px 50px 0px;
-    transition: 2s
+    transition: 5s
 
 }
 .text-loja:hover{
@@ -113,5 +132,41 @@
     border: 2px solid;
     border-radius: 0px 0px 50px 0px;
     transition: 2s
+}
+.text-title:hover{
+    display: block;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    transition: 3s;
+
+}
+.text-lojaL{
+    background: black;
+    position: relative;
+    bottom: 20px;
+    height: 60px;
+    width: 3px;
+    border: 2px solid;
+    border-radius: 0px 0px 0px 0px;
+    transition: 2s;
+    display: flex;
+    flex-direction: row-reverse;
+    left: 741px;
+}
+.text-lojaL:hover{
+    background: black;
+    position: relative;
+    left: 397px;
+    bottom: 20px;
+    height: 60px;
+    width: 350px;
+    border: 2px solid;
+    border-radius: 0px 0px 0px 60px;
+    -webkit-transition: 2s;
+    -o-transition: 2s;
+    transition: 2s;
+    position: relative;
+    right: 132px;
 }
 
