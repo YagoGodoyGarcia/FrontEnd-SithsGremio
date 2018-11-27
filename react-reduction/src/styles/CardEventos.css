@@ -61,4 +61,57 @@
 .term-style{
     height: 25vh;
     overflow: auto;
-  }
+}
+.text-title{
+    font-size: 20px;
+    color: white
+}
+.card-item{
+    width: 100%;
+    height: 100%;
+}
+.body-inicio{
+    padding: 30px
+}
+#root{
+    background-image: linear-gradient(black, white);
+}
+.text-title{
+    display: block;
+    transition: 2s;
+    color: transparent;
+    padding-top: 15px;
+
+}
+.text-title:hover{
+    display: block;
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    transition: 3s;
+
+}
+.text-loja{
+    background: black;
+    position: relative;
+    right: 20px;
+    bottom: 20px;
+    height: 60px;
+    width: 3px;
+    border: 2px solid;
+    border-radius: 0px 0px 50px 0px;
+    transition: 2s
+
+}
+.text-loja:hover{
+    background: black;
+    position: relative;
+    right: 20px;
+    bottom: 20px;
+    height: 60px;
+    width: 350px;
+    border: 2px solid;
+    border-radius: 0px 0px 50px 0px;
+    transition: 2s
+}
+

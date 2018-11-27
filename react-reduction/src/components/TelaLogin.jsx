@@ -67,7 +67,7 @@ class TelaLogin extends React.Component {
       senha: senhaAt
     })
       .then(function (response) {
-        if (response.data === "0") {
+        if (response.data !== "0") {
           localStorage.setItem('idAluno', response.data.idAluno);
           localStorage.setItem('nome', response.data.nome);
           localStorage.setItem('ra', response.data.ra);
@@ -93,7 +93,7 @@ class TelaLogin extends React.Component {
     let emailAluno = document.getElementById("emailCadastrar").value
     let senhaAluno = document.getElementById("senhaCadastro").value
 
-    if (nomeAluno != "" && raAluno != "" && emailAluno != "" && senhaAluno != "") {
+    if (nomeAluno !== "" && raAluno !== "" && emailAluno !== "" && senhaAluno!== "") {
       axios.post(`http://localhost:8080/AlunoRegistration`, {
         nome: nomeAluno,
         ra: raAluno,
@@ -184,14 +184,16 @@ class TelaLogin extends React.Component {
                 type="text"
                 name="text"
                 id="nome"
+                ref="name"
                 placeholder="Digite o nome"
               />
             </FormGroup>
             <FormGroup>
-              <Label for="exampleUrl">Email</Label>
+              <Label htmlFor="EmailInput">Email</Label>
               <Input
                 type="email"
                 name="email"
+                ref="Email"
                 id="emailCadastrar"
                 placeholder="Email"
               />
@@ -201,6 +203,7 @@ class TelaLogin extends React.Component {
               <Input
                 type="number"
                 name="number"
+                ref="num"
                 id="ra"
                 placeholder="RA"
               />
@@ -210,6 +213,7 @@ class TelaLogin extends React.Component {
               <Input
                 type="password"
                 name="password"
+                ref="senha"
                 id="senhaCadastro"
                 placeholder="password"
               />
@@ -218,11 +222,11 @@ class TelaLogin extends React.Component {
           </ModalBody>
           <ModalFooter>
             <Button color="success" onClick={this.cadastrarAluno}>
-              Cadastrar
-                        </Button>
+            Cadastrar</Button>
+
             <Button color="danger" onClick={this.toggle}>
               Cancel
-                        </Button>
+            </Button>
           </ModalFooter>
         </Modal>
       </div>

@@ -1,4 +1,8 @@
 import React from 'react';
+import '../styles/CardEventos.css';
+import ecommerce from '../styles/image/ecommerce.jpg';
+import eventos from '../styles/image/eventos.png';
+
 
 import Page from 'components/Page';
 import {
@@ -17,32 +21,28 @@ class Inicio extends React.Component {
   }
   render() {
     return (
-      <Page>
+      <Page className="body-inicio">
         <Row>
-          <Col md={6} sm={6} xs={12}>
-            <Card inverse className="text-center cardInicio"  >
+          <Col className="card-item">
+            <Card  inverse className="text-center cardInicio"  >
+              <img className="card-item"src={ecommerce}/>
               <CardImgOverlay>
-                <CardTitle>Card Title</CardTitle>
-                <CardText>inversed card</CardText>
-                <CardText>                      
-                        <small className="text-muted"  id="lojaCard">
-                          Loja do Grêmio
-                        </small>
-                </CardText>
+                <CardTitle className="text-loja">
+                  <label className="text-title"  id="lojaCard">Loja do Grêmio</label>
+                </CardTitle>
               </CardImgOverlay>
             </Card>
           </Col>
 
           <Col md={6} sm={6} xs={12}>
             <Card inverse className="text-center cardInicio" onClick={this.Chamada}>
+            <img className="teste"src={eventos}/>
               <CardImgOverlay>
-                <CardTitle>Card Title</CardTitle>
-                <CardText>inversed card</CardText>
-                <CardText>
-                  <small className="text-muted">
+                <CardTitle>
+                <small className="text-muted">
                     Grêmio Eventos
-                  </small>
-                </CardText>
+                </small>
+                </CardTitle>
               </CardImgOverlay>
             </Card>
           </Col>
