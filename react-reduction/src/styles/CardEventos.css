@@ -82,47 +82,25 @@
 }
 .text-title{
     display: block;
-    transition: 2s;
-    color: transparent;
-    padding-top: 15px;
-
+    color: white;
+    font-weight: bold;
+    height: 50px;
+    transition: 3s;
+    padding-right: 120px;
 }
 .text-titleR{
     display: block;
-    transition: 2s;
-    color: transparent;
-    padding-top: 15px;
-
-}
-.text-title:hover{
-    display: block;
     color: white;
     font-weight: bold;
     height: 50px;
     transition: 3s;
-    padding-right: 120px;
+    padding-right: 88px;
 }
-.text-titleR:hover{
-    display: block;
-    color: white;
-    font-weight: bold;
-    height: 50px;
-    transition: 3s;
-    padding-right: 120px;
+.displayNone{
+    width: 3px;
+    display: none;
 }
 .text-loja{
-    background: black;
-    position: relative;
-    right: 20px;
-    bottom: 20px;
-    height: 60px;
-    width: 3px;
-    border: 2px solid;
-    border-radius: 0px 0px 50px 0px;
-    transition: 5s
-
-}
-.text-loja:hover{
     background: black;
     position: relative;
     right: 20px;
@@ -133,31 +111,10 @@
     border-radius: 0px 0px 50px 0px;
     transition: 2s
 }
-.text-title:hover{
-    display: block;
-    color: white;
-    font-weight: bold;
-    height: 50px;
-    transition: 3s;
-
-}
 .text-lojaL{
     background: black;
     position: relative;
-    bottom: 20px;
-    height: 60px;
-    width: 3px;
-    border: 2px solid;
-    border-radius: 0px 0px 0px 0px;
-    transition: 2s;
-    display: flex;
-    flex-direction: row-reverse;
-    left: 741px;
-}
-.text-lojaL:hover{
-    background: black;
-    position: relative;
-    left: 397px;
+    left: 276px;
     bottom: 20px;
     height: 60px;
     width: 350px;
@@ -168,5 +125,7 @@
     transition: 2s;
     position: relative;
     right: 132px;
+    display: flex;
+    flex-direction: row-reverse;
 }
 

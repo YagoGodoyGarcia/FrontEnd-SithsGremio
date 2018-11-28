@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import '../styles/components/_content.scss'
 import {
   Button,
   Form,
@@ -21,6 +22,39 @@ class TelaLogin extends React.Component {
       backdrop: true,
     };
 }
+  valida(){
+    let separa
+    let separa2
+    let separa3
+    var danger=0
+    let emailAluno = document.getElementById("emailCadastrar").value
+    separa=emailAluno.split('')
+    for(var i =0;i<separa.length;i++){
+      if(separa[i] == "@"){
+        separa2 = emailAluno.split('@')
+        }        
+      else{
+        danger= danger +1   
+        console.log(danger)     
+        if(danger==separa.length){
+          var element = document.getElementById("emailCadastrar");
+          element.classList.add("border-danger")
+          document.getElementById("valid").disabled=true;
+          alert("Email invalido")  
+        }
+      }
+    }
+    if(separa2!=undefined){
+      for(var i=0;i<separa2.length;i++){
+        separa=separa2[i].split('.')
+        if(separa[i]=='com'){
+          var element = document.getElementById("emailCadastrar");
+          element.classList.remove("border-danger")
+          document.getElementById("valid").disabled=false;
+        }
+      }
+    }
+  }
   get isLogin() {
     return this.props.authState === STATE_LOGIN;
   }
@@ -92,7 +126,6 @@ class TelaLogin extends React.Component {
     let raAluno = document.getElementById("ra").value
     let emailAluno = document.getElementById("emailCadastrar").value
     let senhaAluno = document.getElementById("senhaCadastro").value
-
     if (nomeAluno !== "" && raAluno !== "" && emailAluno !== "" && senhaAluno!== "") {
       axios.post(`http://localhost:8080/AlunoRegistration`, {
         nome: nomeAluno,
@@ -196,6 +229,7 @@ class TelaLogin extends React.Component {
                 ref="Email"
                 id="emailCadastrar"
                 placeholder="Email"
+                onBlur={this.valida}
               />
             </FormGroup>
             <FormGroup>
@@ -221,7 +255,7 @@ class TelaLogin extends React.Component {
             <Label for="exampleNumber" id="statusModal"></Label>
           </ModalBody>
           <ModalFooter>
-            <Button color="success" onClick={this.cadastrarAluno}>
+            <Button id="valid" color="success" onClick={this.cadastrarAluno}>
             Cadastrar</Button>
 
             <Button color="danger" onClick={this.toggle}>
