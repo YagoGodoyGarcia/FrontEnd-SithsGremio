@@ -49,7 +49,7 @@
     padding: 2%;
 }
 .cardInicio{
-    height: 723px;
+    height: 671px;
 }
 .card-item{
     padding-left: 0px !important;
@@ -76,9 +76,6 @@
     height: 100%;
 }
 .body-inicio{
-}
-#root{
-    background-image: linear-gradient(black, white);
 }
 .text-title{
     display: block;

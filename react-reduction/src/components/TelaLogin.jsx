@@ -101,7 +101,7 @@ class TelaLogin extends React.Component {
       senha: senhaAt
     })
       .then(function (response) {
-        if (response.data !== "0") {
+        if (response.data !== "Login Incorreto") {
           localStorage.setItem('idAluno', response.data.idAluno);
           localStorage.setItem('nome', response.data.nome);
           localStorage.setItem('ra', response.data.ra);

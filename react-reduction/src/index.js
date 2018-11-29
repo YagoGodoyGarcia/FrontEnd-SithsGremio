@@ -4,6 +4,7 @@ import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import Inicio from 'pages/Inicio'
 import App from './App';
 import EventosParaAlunos from 'pages/EventosParaAlunos';
+import MeusEventos from 'pages/MeusEventos';
 import Login from 'pages/AuthPage';
 import ADM from 'pages/ADM';
 import ALUNO from 'pages/ALUNO';
@@ -22,6 +23,7 @@ ReactDOM.render(
         </Route>
         <Route path="/ALUNO" component={ALUNO}>
             <Route path="/AlunoEventos" component={EventosParaAlunos} />
+            <Route path="/MeusEventos" component={MeusEventos} />
         </Route>
     </Router>
 

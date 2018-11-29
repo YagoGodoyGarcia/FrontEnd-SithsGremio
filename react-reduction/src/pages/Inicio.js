@@ -13,56 +13,56 @@ import {
   CardTitle,
   CardText
 } from 'reactstrap';
-import {browserHistory} from 'react-router';
-  var toque = 0
+import { browserHistory } from 'react-router';
+var toque = 0
 class Inicio extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        eventos: props.text,
-        gremio: props.text
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      eventos: props.text,
+      gremio: props.text
     }
-  componentDidMount(){
-    setInterval(()=>{
-      if(toque == 1){
-      this.setState({eventos: 'Eventos' })
-      this.setState({gremio: '' })
+  }
+  componentDidMount() {
+    setInterval(() => {
+      if (toque == 1) {
+        this.setState({ eventos: 'Eventos' })
+        this.setState({ gremio: '' })
 
       }
-      else if(toque == 2){
-        this.setState({gremio: 'Loja Do Gremio' })
-        this.setState({eventos: '' })
-        }
-    },5)
+      else if (toque == 2) {
+        this.setState({ gremio: 'Loja Do Gremio' })
+        this.setState({ eventos: '' })
+      }
+    }, 5)
   }
-  moveR(){
+  moveR() {
     var element = document.getElementById("evento");
     element.classList.add("text-lojaL")
     var elementR = document.getElementById("evento");
     elementR.classList.add("text-titleR")
-    toque =1
+    toque = 1
   }
-  move(){
+  move() {
     let element = document.getElementById("LojadoGrêmio");
     element.classList.add("text-loja")
     let elementR = document.getElementById("LojadoGrêmio");
     elementR.classList.add("text-title")
-    toque =2
+    toque = 2
   }
-  displayNoneR(){
+  displayNoneR() {
     let element = document.getElementById("evento");
     element.classList.remove("text-lojaL");
     let elementR = document.getElementById("evento");
     elementR.classList.remove("text-titleR");
   }
-  displayNone(){
+  displayNone() {
     let element = document.getElementById("LojadoGrêmio");
     element.classList.remove("text-loja");
     let elementR = document.getElementById("LojadoGrêmio");
     elementR.classList.remove("text-title");
   }
-  Chamada(){
+  Chamada() {
     browserHistory.push('/Login')
   }
   render() {
@@ -70,27 +70,27 @@ class Inicio extends React.Component {
       <Page className="body-inicio">
         <Row>
           <Col className="card-item">
-            <Card  inverse className="text-center cardInicio" onMouseLeave={this.displayNone} onMouseOver={this.move}  >
-              <img className="card-item"src={ecommerce}/>
+            <a href="http://35.193.12.25/"  target="_blank">
+              <Card inverse className="text-center cardInicio" onMouseLeave={this.displayNone} onMouseOver={this.move}  >
+                <img className="card-item" src={ecommerce} />
+                <CardImgOverlay>
+                  <CardTitle id='LojadoGrêmio'>
+                    <h3 id="lojaCard">{this.state.gremio}</h3>
+                  </CardTitle>
+                </CardImgOverlay>
+              </Card>
+            </a>
+          </Col>
+          <Col className="card-item">
+            <Card inverse className="text-center cardInicio" onMouseLeave={this.displayNoneR} onMouseOver={this.moveR} onClick={this.Chamada}>
+              <img className="card-item" src={eventos} />
               <CardImgOverlay>
-                <CardTitle id='LojadoGrêmio'>
-                  <h3 id="lojaCard">{this.state.gremio}</h3>
+                <CardTitle id="evento">
+                  <h3 id="lojaCard">{this.state.eventos}</h3>
                 </CardTitle>
               </CardImgOverlay>
             </Card>
           </Col>
-
-          <Col className="card-item">
-            <Card inverse className="text-center cardInicio" onMouseLeave={this.displayNoneR} onMouseOver={this.moveR} onClick={this.Chamada}>
-            <img className="card-item"src={eventos}/>
-              <CardImgOverlay>
-              <CardTitle id="evento">
-                  <h3 id="lojaCard">{this.state.eventos}</h3>
-              </CardTitle>
-              </CardImgOverlay>
-            </Card>
-          </Col>
-
         </Row>
       </Page>
     );

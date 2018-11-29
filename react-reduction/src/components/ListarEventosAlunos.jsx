@@ -16,10 +16,8 @@ import {
 
 import { NumberWidget } from 'components/Widget';
 
-var ListaPresent = [];
-var EventoPresent = [];
 class ListarEventosAlunos extends React.Component {
-   constructor(props) {
+    constructor(props) {
         super(props);
         this.state = {
             customersList: [],
@@ -29,34 +27,12 @@ class ListarEventosAlunos extends React.Component {
     componentDidMount() {
         setInterval(() => {
             var th = this;
-            axios.get(`http://localhost:8080/ListaEvento`)
+            axios.get(`http://localhost:8080/EventosDeisponiveisAluno?id_aluno=`+localStorage.idAluno)
                 .then(function (result) {
                     th.setState({
                         customersList: result.data
                     });
                 });
-
-            if (EventoPresent.length == 0 || EventoPresent == undefined) {
-                this.state.customersList.map(function (element, i) {
-                    for (var i = 0; i < element.alunos.length; i++) {
-                        if (element.alunos[i].idAluno) {
-                            if (element.alunos[i].idAluno != localStorage.idAluno) {
-                                ListaPresent.push(element.idEvento)
-                            }
-                        }
-                    }
-
-                }
-                )
-                console.log(ListaPresent)
-                var th = this;
-                for (var i = 0; i < ListaPresent.length; i++) {
-                    axios.get(`http://localhost:8080/OneEvento?id_evento=` + ListaPresent[i])
-                        .then(function (result) {
-                            EventoPresent.push(result.data)
-                        });
-                }
-            }
         }, 5000)
     }
     state = {
@@ -102,13 +78,12 @@ class ListarEventosAlunos extends React.Component {
     render() {
         return (
             <div>
-
-                {EventoPresent.map((dynamicData) =>
+                {this.state.customersList.map((dynamicData) =>
                     <Card className="CardContainer">
                         <Col lg={12} md={6} sm={6} xs={12}>
                             <NumberWidget
                                 title={dynamicData.nome}
-                                number={dynamicData.data.split('-').reverse().join('/')}
+                                number={dynamicData.data}
                                 color="secondary"
                                 progress={{
                                     value: 60,
