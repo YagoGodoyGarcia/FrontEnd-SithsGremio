@@ -21,36 +21,36 @@ class TelaLogin extends React.Component {
       modal: false,
       backdrop: true,
     };
-}
-  valida(){
+  }
+  valida() {
     let separa
     let separa2
     let separa3
-    var danger=0
+    var danger = 0
     let emailAluno = document.getElementById("emailCadastrar").value
-    separa=emailAluno.split('')
-    for(var i =0;i<separa.length;i++){
-      if(separa[i] == "@"){
+    separa = emailAluno.split('')
+    for (var i = 0; i < separa.length; i++) {
+      if (separa[i] == "@") {
         separa2 = emailAluno.split('@')
-        }        
-      else{
-        danger= danger +1   
-        console.log(danger)     
-        if(danger==separa.length){
+      }
+      else {
+        danger = danger + 1
+        console.log(danger)
+        if (danger == separa.length) {
           var element = document.getElementById("emailCadastrar");
           element.classList.add("border-danger")
-          document.getElementById("valid").disabled=true;
-          alert("Email invalido")  
+          document.getElementById("valid").disabled = true;
+          alert("Email invalido")
         }
       }
     }
-    if(separa2!=undefined){
-      for(var i=0;i<separa2.length;i++){
-        separa=separa2[i].split('.')
-        if(separa[i]=='com'){
+    if (separa2 != undefined) {
+      for (var i = 0; i < separa2.length; i++) {
+        separa = separa2[i].split('.')
+        if (separa[i] == 'com') {
           var element = document.getElementById("emailCadastrar");
           element.classList.remove("border-danger")
-          document.getElementById("valid").disabled=false;
+          document.getElementById("valid").disabled = false;
         }
       }
     }
@@ -121,12 +121,12 @@ class TelaLogin extends React.Component {
         console.log(error);
       });
   }
-  cadastrarAluno() {
+  cadastrarAluno = modalType => () => {
     let nomeAluno = document.getElementById("nome").value
     let raAluno = document.getElementById("ra").value
     let emailAluno = document.getElementById("emailCadastrar").value
     let senhaAluno = document.getElementById("senhaCadastro").value
-    if (nomeAluno !== "" && raAluno !== "" && emailAluno !== "" && senhaAluno!== "") {
+    if (nomeAluno !== "" && raAluno !== "" && emailAluno !== "" && senhaAluno !== "") {
       axios.post(`http://localhost:8080/AlunoRegistration`, {
         nome: nomeAluno,
         ra: raAluno,
@@ -144,7 +144,7 @@ class TelaLogin extends React.Component {
         .catch(function (error) {
           console.log(error);
         });
-        window.location.reload()
+      window.location.reload()
     } else {
       document.getElementById('statusModal').innerHTML = 'Preencha todos os campos!';
     }
@@ -255,9 +255,9 @@ class TelaLogin extends React.Component {
             <Label for="exampleNumber" id="statusModal"></Label>
           </ModalBody>
           <ModalFooter>
-            <Button id="valid" color="success" onClick={this.cadastrarAluno}>
-            Cadastrar</Button>
-
+            <Button id="valid" color="success" onClick={this.cadastrarAluno()}>
+              Cadastrar
+            </Button>
             <Button color="danger" onClick={this.toggle}>
               Cancel
             </Button>

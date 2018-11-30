@@ -27,7 +27,7 @@ class ListarEventosAlunos extends React.Component {
     componentDidMount() {
         setInterval(() => {
             var th = this;
-            axios.get(`http://localhost:8080/EventosDeisponiveisAluno?id_aluno=`+localStorage.idAluno)
+            axios.get(`http://localhost:8080/EventosDisponiveisAluno?id_aluno=`+localStorage.idAluno)
                 .then(function (result) {
                     th.setState({
                         customersList: result.data
@@ -60,7 +60,7 @@ class ListarEventosAlunos extends React.Component {
         });
     };
 
-    entrarNoEvento() {
+    entrarNoEvento = modalType => () => {
         let idEvento = document.getElementById("participar").value
         let idAuno = localStorage.getItem("idAluno")
         axios.post(`http://localhost:8080/AlunoNoEvento`, {
@@ -68,10 +68,10 @@ class ListarEventosAlunos extends React.Component {
             id_aluno: idAuno
         })
             .then(function (response) {
-
+                console.log("Participando!")
             })
-            .catch(function (error) {
-                console.log(error);
+            this.setState({
+                modal: !this.state.modal,
             });
     }
 
@@ -116,7 +116,7 @@ class ListarEventosAlunos extends React.Component {
                         <Label id="sala"></Label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" id="participar" onClick={this.entrarNoEvento}>
+                        <Button color="success" id="participar" onClick={this.entrarNoEvento()}>
                             Participar
                         </Button>
                         <Button color="danger" onClick={this.toggle}>
