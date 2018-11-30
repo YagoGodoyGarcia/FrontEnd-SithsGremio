@@ -25,12 +25,7 @@ class TelaLogin extends React.Component {
   valida() {
     let separa
     let separa2
-<<<<<<< Updated upstream
-    let separa3
     var danger = 0
-=======
-    var danger=0
->>>>>>> Stashed changes
     let emailAluno = document.getElementById("emailCadastrar").value
     separa = emailAluno.split('')
     for (var i = 0; i < separa.length; i++) {
