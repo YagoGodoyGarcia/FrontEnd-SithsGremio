@@ -10,13 +10,6 @@ class ListaADM extends Component {
             this.state = {  }
         }
 
-        axios.post(`http://localhost:8080/ListaAluno`, {
-            nome: nomeAluno,
-            ra: raAluno,
-            email: emailAluno,
-            senha: senhaAluno,
-            nivelPermissao: 1
-        };
         render() { 
             return ( 
                 <Table>
