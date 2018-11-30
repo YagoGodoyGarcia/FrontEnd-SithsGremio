@@ -4,6 +4,7 @@ import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import Salas from 'pages/Salas';
+import ListADM from 'pages/ListaADM'
 import EventosADm from 'pages/ListaDeEventos';
 import {browserHistory} from 'react-router';
 const getBasename = () => {
@@ -29,6 +30,12 @@ class ADM extends React.Component {
                   path="/EventosAdm"
                   layout={MainLayout}
                   component={EventosADm}
+                />
+                <LayoutRoute
+                  exact
+                  path="/ListaAdm"
+                  layout={MainLayout}
+                  component={ListADM}
                 />
                 <Redirect to="/EventosADm" />
               </Switch>

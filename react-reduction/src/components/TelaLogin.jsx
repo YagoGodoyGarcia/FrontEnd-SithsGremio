@@ -25,8 +25,12 @@ class TelaLogin extends React.Component {
   valida() {
     let separa
     let separa2
+<<<<<<< Updated upstream
     let separa3
     var danger = 0
+=======
+    var danger=0
+>>>>>>> Stashed changes
     let emailAluno = document.getElementById("emailCadastrar").value
     separa = emailAluno.split('')
     for (var i = 0; i < separa.length; i++) {
@@ -38,9 +42,10 @@ class TelaLogin extends React.Component {
         console.log(danger)
         if (danger == separa.length) {
           var element = document.getElementById("emailCadastrar");
+          var element2 = document.getElementById("emailInvalido");
           element.classList.add("border-danger")
-          document.getElementById("valid").disabled = true;
-          alert("Email invalido")
+          element2.classList.add("displayblock")
+          document.getElementById("valid").disabled=true;
         }
       }
     }
@@ -49,6 +54,8 @@ class TelaLogin extends React.Component {
         separa = separa2[i].split('.')
         if (separa[i] == 'com') {
           var element = document.getElementById("emailCadastrar");
+          var element2 = document.getElementById("emailInvalido");
+          element2.classList.remove("displayblock")
           element.classList.remove("border-danger")
           document.getElementById("valid").disabled = false;
         }
@@ -231,6 +238,7 @@ class TelaLogin extends React.Component {
                 placeholder="Email"
                 onBlur={this.valida}
               />
+              <Label className="displaynone" id="emailInvalido" style={{color: "red",fontWeight: "bold", marginBottom: "0px"}}>Email Invalido</Label>
             </FormGroup>
             <FormGroup>
               <Label for="exampleNumber">RA</Label>

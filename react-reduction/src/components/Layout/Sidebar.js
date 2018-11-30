@@ -35,6 +35,8 @@ class Sidebar extends React.Component {
       navItems = [
         { to: '/EventosAdm', name: 'Eventos', exact: true, Icon: MdDashboard },
         { to: '/Salas', name: 'Salas', exact: true, Icon: MdWidgets },
+        { to: '/ListaADM', name: 'Lista de ADM', exact: true, Icon: MdWidgets },
+
       ];
     }else{
       navItems = [
