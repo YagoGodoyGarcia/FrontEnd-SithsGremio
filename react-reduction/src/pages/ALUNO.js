@@ -6,7 +6,7 @@ import { BrowserRouter, Redirect, Switch } from 'react-router-dom';
 import EventosParaAlunos from 'pages/EventosParaAlunos';
 import {browserHistory} from 'react-router';
 import MeusEventos from 'pages/MeusEventos';
-
+import Login from 'pages/AuthPage';
 const getBasename = () => {
     return `/${process.env.PUBLIC_URL.split('/').pop()}`;
   };

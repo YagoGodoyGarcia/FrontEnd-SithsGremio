@@ -83,7 +83,7 @@ class ListarEventosAlunos extends React.Component {
                         <Col lg={12} md={6} sm={6} xs={12}>
                             <NumberWidget
                                 title={dynamicData.nome}
-                                number={dynamicData.data}
+                                number={dynamicData.data.split('-').reverse().join('/')}
                                 color="secondary"
                                 progress={{
                                     value: 60,

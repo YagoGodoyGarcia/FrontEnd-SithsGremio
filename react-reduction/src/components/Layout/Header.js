@@ -1,14 +1,25 @@
 import React from 'react';
-
 import bn from 'utils/bemnames';
-
+import PropTypes from 'prop-types';
 import {
+  Button,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
   Navbar,
   // NavbarToggler,
   Nav,
-  Button,
-  CardTitle
+  CardTitle,
+  Card,
+  Col
 } from 'reactstrap';
+import axios from 'axios';
+import { browserHistory } from 'react-router';
 
 import {
   MdClearAll,
@@ -46,16 +57,83 @@ class Header extends React.Component {
     event.stopPropagation();
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
+  state = {
+    modal: false,
+    backdrop: true,
+  };
+  toggle = () => {
+    this.setState({
+      modal: !this.state.modal,
+    });
+  };
+  alterarSenha = modalType => () => {
+    let senha = document.getElementById("senha").value
+    let senhaConfirma = document.getElementById("senhaConfirma").value
+    if (senha == senhaConfirma) {
+      axios.post(`http://localhost:8080/alterarSenha`, {
+        id_aluno: localStorage.idAluno,
+        senha: senha
+      })
+        .then(function (response) {
+
+        })
+      this.setState({
+        modal: !this.state.modal,
+      });
+    } else {
+      document.getElementById('statusModal').innerHTML = 'As senhas não são iguais!'
+    }
+  }
   render() {
     return (
-      <Navbar light className={bem.b('bg-white')}>
-        <Nav navbar className="mr-2">
-          <Button outline onClick={this.handleSidebarControlButton}>
-            <MdClearAll size={25} />
-          </Button>
-        </Nav> 
-        <CardTitle id="ola" innerHTML="Ola">{"Olá "+localStorage.getItem('nome')}</CardTitle>
-      </Navbar>
+      <div>
+        <Navbar light className={bem.b('bg-white')}>
+          <Nav navbar className="mr-2">
+            <Button outline onClick={this.handleSidebarControlButton}>
+              <MdClearAll size={25} />
+            </Button>
+          </Nav>
+          <CardTitle id="ola" innerHTML="Ola" onClick={this.toggle}>{"Olá " + localStorage.getItem('nome')}</CardTitle>
+        </Navbar>
+        <Modal
+          id="modalSala"
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          className={this.props.className}>
+          <ModalHeader toggle={this.toggle}>Evento</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label for="exampleUrl">Senha</Label>
+              <Input
+                type="password"
+                name="password"
+                ref="senha"
+                id="senha"
+                placeholder="password"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleUrl">Confirmar Senha</Label>
+              <Input
+                type="password"
+                name="password"
+                ref="senha"
+                id="senhaConfirma"
+                placeholder="password"
+              />
+            </FormGroup>
+            <Label for="exampleNumber" id="statusModal"></Label>
+          </ModalBody>
+          <ModalFooter>
+            <Button id="valid" color="success" onClick={this.alterarSenha()}>
+              Cadastrar
+            </Button>
+            <Button color="danger" onClick={this.toggle}>
+              Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+      </div>
     );
   }
 }
