@@ -25,27 +25,54 @@ class CadastraSala extends React.Component {
         let numeroSala = document.getElementById("numeroSala").value
         let objSala = document.getElementById("capacidadeSala");
         let capacideSala = objSala.options[objSala.selectedIndex].value;
-
-        if (numeroSala !== "" && capacideSala !== "") {
-            axios.post(`http://localhost:8080/SalaRegistration`, {
-                numero: numeroSala,
-                capacidade: capacideSala,
-                disponibilidade: true
-            })
-                .then(function (response) {
-                    console.log("Cadastrado");
-                    document.getElementById("numeroSala").value = ""
+        let descricaoEvento = document.getElementById("localExterno").value;
+        var ambiente = document.getElementById("ambiente").value ;
+        if(ambiente ==='Interno'){
+            if (numeroSala !== "" && capacideSala !== "" && numeroSala != 0) {
+                axios.post(`http://localhost:8080/SalaRegistration`, {
+                    numero: numeroSala,
+                    capacidade: capacideSala,
+                    disponibilidade: true,
+                    descricao: ""
                 })
-                .catch(function (error) {
-                    console.log(error);
-                });
-                this.setState({
-                    modal: !this.state.modal,
-                });
-        } else {
-            this.setState({error: "Preencha todos os campos!"})
+                    .then(function (response) {
+                        console.log("Cadastrado");
+                        document.getElementById("numeroSala").value = ""
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                    this.setState({
+                        modal: !this.state.modal,
+                    });
+            } else {
+                this.setState({error: "Preencha todos os campos!"})
+            }
         }
-
+        else if(ambiente ===''){
+            this.setState({error: "Escolha o local!"})
+        }
+        else{
+            if (descricaoEvento !== "") {
+                axios.post(`http://localhost:8080/SalaRegistration`, {
+                    numero: 0,
+                    capacidade: 0,
+                    disponibilidade: true,
+                    descricao: descricaoEvento
+                })
+                    .then(function (response) {
+                        document.getElementById("numeroSala").value = ""
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                    this.setState({
+                        modal: !this.state.modal,
+                    });
+            } else {
+                this.setState({error: "Preencha todos os campos!"})
+            }
+        }
     }
     tipoAmbiente(){
         const ambiente = document.getElementById("ambiente").value ;

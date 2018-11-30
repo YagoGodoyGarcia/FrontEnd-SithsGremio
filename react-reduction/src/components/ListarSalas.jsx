@@ -8,13 +8,13 @@ import {
     CardText,
     CardTitle
 } from 'reactstrap';
-
 class ListarSalas extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customersList: [],
-            customersListN: [],
+            internoList: [],
+            externoList: [],
         };
     }
     componentDidMount() {
@@ -26,7 +26,20 @@ class ListarSalas extends React.Component {
                         customersList: result.data
                     });
                 });
-        }, 5000)
+            this.state.internoList = [];
+            this.state.externoList = [];
+            for (var i = 0; i < this.state.customersList.length; i++) {
+                if (this.state.customersList[i].numero == 0) {
+                    this.state.externoList.push(this.state.customersList[i])
+                } else {
+                    this.state.internoList.push(this.state.customersList[i])
+                }
+            }
+            console.log("Ex")
+            console.log(this.state.externoList)
+            console.log("in")
+            console.log(this.state.internoList)
+            }, 5000)
     }
     excluirSala = idSalaClick => () => {
         axios.post(`http://localhost:8080/DeleteSala?id_sala=` + idSalaClick)
@@ -48,10 +61,21 @@ class ListarSalas extends React.Component {
                 <div className="divAEsquerda">
                     <br />
                     {/* <CardTitle>Disponiveis</CardTitle> */}
-                    {this.state.customersList.map((dynamicData) =>
+                    {this.state.externoList.map((dynamicData) =>
                         <Card className="CardContainerSala">
                             <Col md={12} sm={6} xs={12}>
-                            <br></br>
+                                <br></br>
+                                <CardTitle className="text-center">Sala {dynamicData.numero}</CardTitle>
+            
+                                <Button color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
+                                <br></br>
+                            </Col>
+                        </Card>
+                    )}
+                    {this.state.internoList.map((dynamicData) =>
+                        <Card className="CardContainerSala">
+                            <Col md={12} sm={6} xs={12}>
+                                <br></br>
                                 <CardTitle className="text-center">Sala {dynamicData.numero}</CardTitle>
                                 <CardText>
                                     Capacidade: {dynamicData.capacidade}
