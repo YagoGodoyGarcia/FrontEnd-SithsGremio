@@ -40,7 +40,7 @@ class TelaLogin extends React.Component {
           var element2 = document.getElementById("emailInvalido");
           element.classList.add("border-danger")
           element2.classList.add("displayblock")
-          document.getElementById("valid").disabled=true;
+          document.getElementById("valid").disabled = true;
         }
       }
     }
@@ -146,7 +146,9 @@ class TelaLogin extends React.Component {
         .catch(function (error) {
           console.log(error);
         });
-      window.location.reload()
+      this.setState({
+        modal: !this.state.modal,
+      });
     } else {
       document.getElementById('statusModal').innerHTML = 'Preencha todos os campos!';
     }
@@ -233,7 +235,7 @@ class TelaLogin extends React.Component {
                 placeholder="Email"
                 onBlur={this.valida}
               />
-              <Label className="displaynone" id="emailInvalido" style={{color: "red",fontWeight: "bold", marginBottom: "0px"}}>Email Invalido</Label>
+              <Label className="displaynone" id="emailInvalido" style={{ color: "red", fontWeight: "bold", marginBottom: "0px" }}>Email Invalido</Label>
             </FormGroup>
             <FormGroup>
               <Label for="exampleNumber">RA</Label>
