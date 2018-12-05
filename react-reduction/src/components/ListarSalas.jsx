@@ -13,8 +13,14 @@ class ListarSalas extends React.Component {
         super(props);
         this.state = {
             customersList: [],
+<<<<<<< Updated upstream
             internoList: [],
             externoList: [],
+=======
+            customersListSalas: [],
+            interno:[],
+            externo:[]
+>>>>>>> Stashed changes
         };
     }
     componentDidMount() {
@@ -22,10 +28,12 @@ class ListarSalas extends React.Component {
             var th = this;
             axios.get(`http://localhost:8080/ListaSala`)
                 .then(function (result) {
+                    console.log(result)
                     th.setState({
-                        customersList: result.data
+                        customersListSalas: result.data
                     });
                 });
+<<<<<<< Updated upstream
             this.state.internoList = [];
             this.state.externoList = [];
             for (var i = 0; i < this.state.customersList.length; i++) {
@@ -40,6 +48,25 @@ class ListarSalas extends React.Component {
             console.log("in")
             console.log(this.state.internoList)
             }, 5000)
+=======
+                this.state.interno=[];
+                this.state.externo=[];
+                console.log(this.state.customersListSalas)
+
+                for(var i = 0;i<this.state.customersListSalas.length;i++){
+                    if(this.state.customersListSalas[i].numero == 0){
+                        this.state.externo.push(this.state.customersListSalas[i])
+                    }
+                    else{
+                        this.state.interno.push(this.state.customersListSalas[i])
+                    }
+
+                }
+                console.log(this.state.interno)
+                console.log(this.state.externo)
+        }, 5000)
+        
+>>>>>>> Stashed changes
     }
     excluirSala = idSalaClick => () => {
         axios.post(`http://localhost:8080/DeleteSala?id_sala=` + idSalaClick)
@@ -61,7 +88,11 @@ class ListarSalas extends React.Component {
                 <div className="divAEsquerda">
                     <br />
                     {/* <CardTitle>Disponiveis</CardTitle> */}
+<<<<<<< Updated upstream
                     {this.state.externoList.map((dynamicData) =>
+=======
+                    {this.state.interno.map((dynamicData) =>
+>>>>>>> Stashed changes
                         <Card className="CardContainerSala">
                             <Col md={12} sm={6} xs={12}>
                                 <br></br>
@@ -80,6 +111,16 @@ class ListarSalas extends React.Component {
                                 <CardText>
                                     Capacidade: {dynamicData.capacidade}
                                 </CardText>
+                                <Button color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
+                                <br></br>
+                            </Col>
+                        </Card>
+                    )}
+                    {this.state.externo.map((dynamicData) =>
+                        <Card className="CardContainerSala">
+                            <Col md={12} sm={6} xs={12}>
+                            <br></br>
+                                <CardTitle className="text-center"> {dynamicData.descricao}</CardTitle>
                                 <Button color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
                                 <br></br>
                             </Col>

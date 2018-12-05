@@ -18,6 +18,8 @@ class CadastraEvento extends React.Component {
         this.state = {
             customersListEventos: [],
             customersListSalas: [],
+            interno:[],
+            externo:[]
         };
     }
     componentDidMount() {
@@ -28,6 +30,7 @@ class CadastraEvento extends React.Component {
                     customersListEventos: result.data
                 });
             });
+            // Evento Interno
         setInterval(() => {
             var th = this;
             axios.get(`http://localhost:8080/ListaSala`)
@@ -36,6 +39,29 @@ class CadastraEvento extends React.Component {
                         customersListSalas: result.data
                     });
                 });
+        }, 5000)
+        setInterval(() => {
+            var th = this;
+            axios.get(`http://localhost:8080/ListaSala`)
+                .then(function (result) {
+                    th.setState({
+                        customersListSalas: result.data
+                    });
+                });
+                this.state.interno=[];
+                this.state.externo=[];
+                for(var i = 0;i<this.state.customersListSalas.length;i++){
+                    if(this.state.customersListSalas[i].numero == 0){
+                        this.state.externo.push(this.state.customersListSalas[i])
+                    }
+                    else{
+                        this.state.interno.push(this.state.customersListSalas[i])
+                    }
+
+                }
+                console.log(this.state.interno)
+                console.log(this.state.externo)
+
         }, 5000)
     }
     cadastrar = modalType => () => {
@@ -46,20 +72,27 @@ class CadastraEvento extends React.Component {
         let horaEv = document.getElementById("hora").value
         let descricaoEv = document.getElementById("descricao").value
         let objSala = document.getElementById("sala");
-        let salaEv = objSala.options[objSala.selectedIndex].value;
+        let salaIn = objSala.options[objSala.selectedIndex].value;
+        let objSalaEx = document.getElementById("salaEx");
+        let salaEx = objSalaEx.options[objSalaEx.selectedIndex].value;
         let atual = new Date()
         if (dataEv.ge < atual.getFullYear()) {
-            alert("Data Invalida Fdp!")
+            alert("Data Invalida!")
 
         } else {
-            if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEv != "") {
+            if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEx != "" || salaIn != "") {
+                 if(salaEx==""){
+                     var resultado=salaIn
+                 }else{
+                     var resultado=salaEx
+                 }
                 axios.post(`http://localhost:8080/EventoRegistration`, {
                     nome: nomeEv,
                     data: dataEv,
                     hora: horaEv,
                     descricao: descricaoEv,
                     palestrante: palestranteEv,
-                    sala: salaEv
+                    sala: resultado
                 })
                     .then(function (response) {
                         console.log("Cadastrado");
@@ -96,6 +129,21 @@ class CadastraEvento extends React.Component {
             alert("Cadastre uma sala primeiro!");
         }
     };
+    tipoAmbiente(){
+        const ambiente = document.getElementById("Ambiente").value ;
+        if(ambiente ==='Interno'){
+            document.getElementById("idSala").style.display="block";
+            document.getElementById("idExterno").style.display="none";
+
+        }
+        else if(ambiente ===''){
+            document.getElementById("idSala").style.display="none";
+            document.getElementById("idExterno").style.display="none";
+        }
+        else{
+            document.getElementById("idSala").style.display="none";
+            document.getElementById("idExterno").style.display="block";
+        }    }
 
     render() {
         return (
@@ -151,12 +199,30 @@ class CadastraEvento extends React.Component {
                             <Input type="textarea" name="text" id="descricao" />
                         </FormGroup>
                         <FormGroup>
+                            <Label for="exampleText">Tipo</Label>
+                            <Input type="select" name="select" id="Ambiente" onClick={this.tipoAmbiente} >
+                                    <option value="">Escolha o Ambiente do Evento</option>
+                                    <option value="Interno">Interno</option>
+                                    <option value="Externo">Externo</option>
+                            </Input>
+                            <Label for="exampleNumber" id="status"></Label>
+                        </FormGroup>
+                        <FormGroup id="idSala" style={{display: 'none'}}>
                             <Label for="exampleText">Sala</Label>
                             <Input type="select" name="select" id="sala">
-                                {this.state.customersListSalas.map((dynamicData) =>
+                                {this.state.interno.map((dynamicData) =>
                                     <option value={dynamicData.idSala}>{dynamicData.numero}</option>
                                 )}
                             </Input>
+                            <Label for="exampleNumber" id="status"></Label>
+                        </FormGroup>
+                        <FormGroup id="idExterno" style={{display: 'none'}}>
+                            <Label for="exampleText">Externo</Label>
+                            <Input type="select" name="select" id="salaEx">
+                                {this.state.externo.map((dynamicData) =>
+                                    <option value={dynamicData.idSala}>{dynamicData.descricao}</option>
+                                )}
+                            </Input>                            
                             <Label for="exampleNumber" id="status"></Label>
                         </FormGroup>
                     </ModalBody>

@@ -1,5 +1,5 @@
 .BorderCard{
-    border: none;
+    border: none !important;
 }
 .CardContainer{
     width: 45%;
@@ -38,7 +38,6 @@
 }
 .verMaisEvent{
     width: 87%;
-    margin-left: 3.5%;
 }
 .verMaisEventAluno{
     width: 92%;

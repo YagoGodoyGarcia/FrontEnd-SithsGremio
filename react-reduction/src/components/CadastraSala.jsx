@@ -24,7 +24,10 @@ class CadastraSala extends React.Component {
     cadastrar = modalType => () => {
         let numeroSala = document.getElementById("numeroSala").value
         let objSala = document.getElementById("capacidadeSala");
+        let ambiente = document.getElementById("ambiente").value;
+        let Tipoambiente = document.getElementById("localExterno").value;
         let capacideSala = objSala.options[objSala.selectedIndex].value;
+<<<<<<< Updated upstream
         let descricaoEvento = document.getElementById("localExterno").value;
         var ambiente = document.getElementById("ambiente").value ;
         if(ambiente ==='Interno'){
@@ -73,6 +76,55 @@ class CadastraSala extends React.Component {
                 this.setState({error: "Preencha todos os campos!"})
             }
         }
+=======
+        console.log(ambiente)
+        console.log(numeroSala)
+            if(ambiente == "Externo"){
+                let Tipoambiente = document.getElementById("localExterno").value;
+                console.log(Tipoambiente)
+                if (numeroSala == "" && Tipoambiente !== "" ) {
+                    axios.post(`http://localhost:8080/SalaRegistration`, {
+                        numero: numeroSala,
+                        capacidade: "",
+                        descricao: Tipoambiente
+                    })
+                        .then(function (response) {
+                            console.log("Cadastrado");
+                            document.getElementById("numeroSala").value = ""
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                        this.setState({
+                            modal: !this.state.modal,
+                        });
+                } else {
+                    this.setState({error: "Preencha todos os campos!"})
+                }
+            }
+            else{
+                let Tipoambiente = document.getElementById("localExterno").value;
+                if (numeroSala !== "" && capacideSala !== "" ) {
+                    axios.post(`http://localhost:8080/SalaRegistration`, {
+                        numero: numeroSala,
+                        capacidade: capacideSala,
+                        descricao: ""
+                    })
+                        .then(function (response) {
+                            console.log("Cadastrado");
+                            document.getElementById("numeroSala").value = ""
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                        this.setState({
+                            modal: !this.state.modal,
+                        });
+                } else {
+                    this.setState({error: "Preencha todos os campos!"})
+                }
+            }
+>>>>>>> Stashed changes
     }
     tipoAmbiente(){
         const ambiente = document.getElementById("ambiente").value ;

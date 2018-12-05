@@ -245,6 +245,7 @@ class TelaLogin extends React.Component {
                 ref="num"
                 id="ra"
                 placeholder="RA"
+                maxLength='8'
               />
             </FormGroup>
             <FormGroup>
@@ -255,6 +256,8 @@ class TelaLogin extends React.Component {
                 ref="senha"
                 id="senhaCadastro"
                 placeholder="password"
+                maxLength='8'
+
               />
             </FormGroup>
             <Label for="exampleNumber" id="statusModal"></Label>

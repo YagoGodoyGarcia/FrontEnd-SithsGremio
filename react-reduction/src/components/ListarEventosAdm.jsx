@@ -268,6 +268,7 @@ class ListarEventosAdm extends React.Component {
                                         <td>{dynamicData.ra}</td>
                                         <td>{dynamicData.nome}</td>
                                         <td>{dynamicData.email}</td>
+                                        <button className="btn btn-danger">Remover</button>
                                     </tr>
                                 )}
                             </tbody>
