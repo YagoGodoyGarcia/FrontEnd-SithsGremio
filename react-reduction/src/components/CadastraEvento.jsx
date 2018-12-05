@@ -12,14 +12,15 @@ import {
     Input
 } from 'reactstrap';
 
+var valida = true;
 class CadastraEvento extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             customersListEventos: [],
             customersListSalas: [],
-            interno:[],
-            externo:[]
+            interno: [],
+            externo: []
         };
     }
     componentDidMount() {
@@ -30,7 +31,7 @@ class CadastraEvento extends React.Component {
                     customersListEventos: result.data
                 });
             });
-            // Evento Interno
+        // Evento Interno
         setInterval(() => {
             var th = this;
             axios.get(`http://localhost:8080/ListaSala`)
@@ -48,20 +49,17 @@ class CadastraEvento extends React.Component {
                         customersListSalas: result.data
                     });
                 });
-                this.state.interno=[];
-                this.state.externo=[];
-                for(var i = 0;i<this.state.customersListSalas.length;i++){
-                    if(this.state.customersListSalas[i].numero == 0){
-                        this.state.externo.push(this.state.customersListSalas[i])
-                    }
-                    else{
-                        this.state.interno.push(this.state.customersListSalas[i])
-                    }
-
+            this.state.interno = [];
+            this.state.externo = [];
+            for (var i = 0; i < this.state.customersListSalas.length; i++) {
+                if (this.state.customersListSalas[i].numero == 0) {
+                    this.state.externo.push(this.state.customersListSalas[i])
                 }
-                console.log(this.state.interno)
-                console.log(this.state.externo)
+                else {
+                    this.state.interno.push(this.state.customersListSalas[i])
+                }
 
+            }
         }, 5000)
     }
     cadastrar = modalType => () => {
@@ -71,48 +69,61 @@ class CadastraEvento extends React.Component {
         let dataEv = document.getElementById("data").value
         let horaEv = document.getElementById("hora").value
         let descricaoEv = document.getElementById("descricao").value
-        let objSala = document.getElementById("sala");
-        let salaIn = objSala.options[objSala.selectedIndex].value;
-        let objSalaEx = document.getElementById("salaEx");
-        let salaEx = objSalaEx.options[objSalaEx.selectedIndex].value;
         let atual = new Date()
-        if (dataEv.ge < atual.getFullYear()) {
-            alert("Data Invalida!")
-
+        let objSala
+        let sala
+        const ambiente = document.getElementById("Ambiente").value;
+        if (ambiente === 'Interno') {
+            objSala = document.getElementById("sala");
+            sala = objSala.options[objSala.selectedIndex].value;
+        }
+        else if (ambiente === 'Externo') {
+            objSala = document.getElementById("salaEx");
+            sala = objSala.options[objSala.selectedIndex].value;
+        }
+        // if (document.getElementById('data') !== null) {
+        //     var splitData = []
+        //     splitData = dataEv.split('-')
+        //     console.log(splitData)
+        // }
+        if (ambiente === '') {
+            document.getElementById('status').innerHTML = 'Escolha um local!';
         } else {
-            if (nomeEv != "" && palestranteEv != "" && dataEv != "" && horaEv != "" && descricaoEv != "" && salaEx != "" || salaIn != "") {
-                 if(salaEx==""){
-                     var resultado=salaIn
-                 }else{
-                     var resultado=salaEx
-                 }
+            if (nomeEv !== "" || palestranteEv !== "" || dataEv !== "" || horaEv !== "" || descricaoEv !== "" && sala != undefined) {
+                axios.post(`http://localhost:8080/Data`, {
+                    data: dataEv,
+                    sala: sala
+                })
+                    .then(function (response) {
+                        valida = true;
+                    }).catch(function (error) {
+                        valida = false;
+                    })
+            if(valida == true){
                 axios.post(`http://localhost:8080/EventoRegistration`, {
                     nome: nomeEv,
                     data: dataEv,
                     hora: horaEv,
                     descricao: descricaoEv,
                     palestrante: palestranteEv,
-                    sala: resultado
+                    sala: sala
                 })
                     .then(function (response) {
-                        console.log("Cadastrado");
-                        document.getElementById("nomeEvento").value = ""
-                        document.getElementById("palestrante").value = ""
-                        document.getElementById("data").value = ""
-                        document.getElementById("hora").value = ""
-                        document.getElementById("descricao").value = ""
-
-
+                        
+                            document.getElementById("nomeEvento").value = ""
+                            document.getElementById("palestrante").value = ""
+                            document.getElementById("data").value = ""
+                            document.getElementById("hora").value = ""
+                            document.getElementById("descricao").value = ""
                     })
-                    .catch(function (error) {
-                        console.log(error);
+                    this.setState({
+                        modal: !this.state.modal,
                     });
-                this.setState({
-                    modal: !this.state.modal,
-                });
+            }
             } else {
                 document.getElementById('status').innerHTML = 'Preencha todos os campos!';
             }
+
         }
     }
     state = {
@@ -129,21 +140,22 @@ class CadastraEvento extends React.Component {
             alert("Cadastre uma sala primeiro!");
         }
     };
-    tipoAmbiente(){
-        const ambiente = document.getElementById("Ambiente").value ;
-        if(ambiente ==='Interno'){
-            document.getElementById("idSala").style.display="block";
-            document.getElementById("idExterno").style.display="none";
+    tipoAmbiente() {
+        const ambiente = document.getElementById("Ambiente").value;
+        if (ambiente === 'Interno') {
+            document.getElementById("idSala").style.display = "block";
+            document.getElementById("idExterno").style.display = "none";
 
         }
-        else if(ambiente ===''){
-            document.getElementById("idSala").style.display="none";
-            document.getElementById("idExterno").style.display="none";
+        else if (ambiente === '') {
+            document.getElementById("idSala").style.display = "none";
+            document.getElementById("idExterno").style.display = "none";
         }
-        else{
-            document.getElementById("idSala").style.display="none";
-            document.getElementById("idExterno").style.display="block";
-        }    }
+        else {
+            document.getElementById("idSala").style.display = "none";
+            document.getElementById("idExterno").style.display = "block";
+        }
+    }
 
     render() {
         return (
@@ -183,6 +195,7 @@ class CadastraEvento extends React.Component {
                                 name="date"
                                 id="data"
                                 placeholder="date placeholder"
+
                             />
                         </FormGroup>
                         <FormGroup>
@@ -201,30 +214,28 @@ class CadastraEvento extends React.Component {
                         <FormGroup>
                             <Label for="exampleText">Tipo</Label>
                             <Input type="select" name="select" id="Ambiente" onClick={this.tipoAmbiente} >
-                                    <option value="">Escolha o Ambiente do Evento</option>
-                                    <option value="Interno">Interno</option>
-                                    <option value="Externo">Externo</option>
+                                <option value="">Escolha o Ambiente do Evento</option>
+                                <option value="Interno">Interno</option>
+                                <option value="Externo">Externo</option>
                             </Input>
-                            <Label for="exampleNumber" id="status"></Label>
                         </FormGroup>
-                        <FormGroup id="idSala" style={{display: 'none'}}>
+                        <FormGroup id="idSala" style={{ display: 'none' }}>
                             <Label for="exampleText">Sala</Label>
                             <Input type="select" name="select" id="sala">
                                 {this.state.interno.map((dynamicData) =>
                                     <option value={dynamicData.idSala}>{dynamicData.numero}</option>
                                 )}
                             </Input>
-                            <Label for="exampleNumber" id="status"></Label>
                         </FormGroup>
-                        <FormGroup id="idExterno" style={{display: 'none'}}>
+                        <FormGroup id="idExterno" style={{ display: 'none' }}>
                             <Label for="exampleText">Externo</Label>
                             <Input type="select" name="select" id="salaEx">
                                 {this.state.externo.map((dynamicData) =>
                                     <option value={dynamicData.idSala}>{dynamicData.descricao}</option>
                                 )}
-                            </Input>                            
-                            <Label for="exampleNumber" id="status"></Label>
+                            </Input>
                         </FormGroup>
+                        <Label for="exampleNumber" id="status"></Label>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="success" onClick={this.cadastrar()}>

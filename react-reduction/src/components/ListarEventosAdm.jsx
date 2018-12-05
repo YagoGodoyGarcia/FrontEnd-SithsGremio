@@ -122,7 +122,6 @@ class ListarEventosAdm extends React.Component {
         modalCM: false,
     };
     VerChamada = idEventoClick => () => {
-        
             let th = this
             axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
                 .then(function (result) {

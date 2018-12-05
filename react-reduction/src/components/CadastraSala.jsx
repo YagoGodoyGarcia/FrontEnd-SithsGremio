@@ -17,7 +17,7 @@ class CadastraSala extends React.Component {
         super(props);
         this.state = {
             customersList: [],
-            error:'',
+            error: '',
             local: props.texto
         };
     }
@@ -27,15 +27,35 @@ class CadastraSala extends React.Component {
         let ambiente = document.getElementById("ambiente").value;
         let Tipoambiente = document.getElementById("localExterno").value;
         let capacideSala = objSala.options[objSala.selectedIndex].value;
-<<<<<<< Updated upstream
-        let descricaoEvento = document.getElementById("localExterno").value;
-        var ambiente = document.getElementById("ambiente").value ;
-        if(ambiente ==='Interno'){
-            if (numeroSala !== "" && capacideSala !== "" && numeroSala != 0) {
+        if (ambiente == "Externo") {
+            let Tipoambiente = document.getElementById("localExterno").value;
+            console.log(Tipoambiente)
+            if (numeroSala == "" && Tipoambiente !== "") {
+                axios.post(`http://localhost:8080/SalaRegistration`, {
+                    numero: numeroSala,
+                    capacidade: "",
+                    descricao: Tipoambiente
+                })
+                    .then(function (response) {
+                        console.log("Cadastrado");
+                        document.getElementById("numeroSala").value = ""
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                this.setState({
+                    modal: !this.state.modal,
+                });
+            } else {
+                this.setState({ error: "Preencha todos os campos!" })
+            }
+        }
+        else {
+            let Tipoambiente = document.getElementById("localExterno").value;
+            if (numeroSala !== "" && capacideSala !== "") {
                 axios.post(`http://localhost:8080/SalaRegistration`, {
                     numero: numeroSala,
                     capacidade: capacideSala,
-                    disponibilidade: true,
                     descricao: ""
                 })
                     .then(function (response) {
@@ -45,104 +65,31 @@ class CadastraSala extends React.Component {
                     .catch(function (error) {
                         console.log(error);
                     });
-                    this.setState({
-                        modal: !this.state.modal,
-                    });
+                this.setState({
+                    modal: !this.state.modal,
+                });
             } else {
-                this.setState({error: "Preencha todos os campos!"})
+                this.setState({ error: "Preencha todos os campos!" })
             }
         }
-        else if(ambiente ===''){
-            this.setState({error: "Escolha o local!"})
-        }
-        else{
-            if (descricaoEvento !== "") {
-                axios.post(`http://localhost:8080/SalaRegistration`, {
-                    numero: 0,
-                    capacidade: 0,
-                    disponibilidade: true,
-                    descricao: descricaoEvento
-                })
-                    .then(function (response) {
-                        document.getElementById("numeroSala").value = ""
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
-                    this.setState({
-                        modal: !this.state.modal,
-                    });
-            } else {
-                this.setState({error: "Preencha todos os campos!"})
-            }
-        }
-=======
-        console.log(ambiente)
-        console.log(numeroSala)
-            if(ambiente == "Externo"){
-                let Tipoambiente = document.getElementById("localExterno").value;
-                console.log(Tipoambiente)
-                if (numeroSala == "" && Tipoambiente !== "" ) {
-                    axios.post(`http://localhost:8080/SalaRegistration`, {
-                        numero: numeroSala,
-                        capacidade: "",
-                        descricao: Tipoambiente
-                    })
-                        .then(function (response) {
-                            console.log("Cadastrado");
-                            document.getElementById("numeroSala").value = ""
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                        this.setState({
-                            modal: !this.state.modal,
-                        });
-                } else {
-                    this.setState({error: "Preencha todos os campos!"})
-                }
-            }
-            else{
-                let Tipoambiente = document.getElementById("localExterno").value;
-                if (numeroSala !== "" && capacideSala !== "" ) {
-                    axios.post(`http://localhost:8080/SalaRegistration`, {
-                        numero: numeroSala,
-                        capacidade: capacideSala,
-                        descricao: ""
-                    })
-                        .then(function (response) {
-                            console.log("Cadastrado");
-                            document.getElementById("numeroSala").value = ""
-                        })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                        this.setState({
-                            modal: !this.state.modal,
-                        });
-                } else {
-                    this.setState({error: "Preencha todos os campos!"})
-                }
-            }
->>>>>>> Stashed changes
     }
-    tipoAmbiente(){
-        const ambiente = document.getElementById("ambiente").value ;
-        if(ambiente ==='Interno'){
-            document.getElementById("idSala").style.display="block";
-            document.getElementById("idExterno").style.display="none";
+    tipoAmbiente() {
+        const ambiente = document.getElementById("ambiente").value;
+        if (ambiente === 'Interno') {
+            document.getElementById("idSala").style.display = "block";
+            document.getElementById("idExterno").style.display = "none";
 
         }
-        else if(ambiente ===''){
-            document.getElementById("idSala").style.display="none";
-            document.getElementById("idExterno").style.display="none";
+        else if (ambiente === '') {
+            document.getElementById("idSala").style.display = "none";
+            document.getElementById("idExterno").style.display = "none";
         }
-        else{
-            document.getElementById("idSala").style.display="none";
-            document.getElementById("idExterno").style.display="block";
+        else {
+            document.getElementById("idSala").style.display = "none";
+            document.getElementById("idExterno").style.display = "block";
         }
 
-    }   
+    }
     state = {
         modal: false,
         backdrop: true,
@@ -172,15 +119,15 @@ class CadastraSala extends React.Component {
                                 <option value="Externo">Externo</option>
                             </Input>
                         </FormGroup>
-                        <FormGroup id="idSala" style={{display: 'none'}}>
+                        <FormGroup id="idSala" style={{ display: 'none' }}>
                             <Label for="exampleText">Capacidade de Pessoas</Label>
-                                <Input type="select" name="select" id="capacidadeSala">
-                                    <option value="20">20</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                    <option value="60">60</option>
-                                </Input>
-                             <Label for="exampleNumber" style={{marginTop: '10px'}}>Numero da Sala</Label>
+                            <Input type="select" name="select" id="capacidadeSala">
+                                <option value="20">20</option>
+                                <option value="40">40</option>
+                                <option value="50">50</option>
+                                <option value="60">60</option>
+                            </Input>
+                            <Label for="exampleNumber" style={{ marginTop: '10px' }}>Numero da Sala</Label>
                             <Input
                                 type="number"
                                 name="number"
@@ -188,8 +135,8 @@ class CadastraSala extends React.Component {
                                 placeholder="numero da sala"
                             />
                         </FormGroup>
-                        <FormGroup id="idExterno" style={{display: 'none'}}>
-                        <Label for="exampleText">Descreva o Local</Label>
+                        <FormGroup id="idExterno" style={{ display: 'none' }}>
+                            <Label for="exampleText">Descreva o Local</Label>
                             <Input
                                 type="text"
                                 name="externo"

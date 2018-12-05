@@ -137,7 +137,6 @@ class TelaLogin extends React.Component {
         nivelPermissao: 1
       })
         .then(function (response) {
-          console.log("Cadastrado");
           nomeAluno = document.getElementById("nome").value = ""
           raAluno = document.getElementById("ra").value = ""
           emailAluno = document.getElementById("emailCadastrar").value = ""
