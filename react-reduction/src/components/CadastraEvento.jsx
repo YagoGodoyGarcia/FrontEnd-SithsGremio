@@ -12,7 +12,6 @@ import {
     Input
 } from 'reactstrap';
 
-var valida = true;
 class CadastraEvento extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +19,8 @@ class CadastraEvento extends React.Component {
             customersListEventos: [],
             customersListSalas: [],
             interno: [],
-            externo: []
+            externo: [],
+            valida: '',
         };
     }
     componentDidMount() {
@@ -89,37 +89,40 @@ class CadastraEvento extends React.Component {
         if (ambiente === '') {
             document.getElementById('status').innerHTML = 'Escolha um local!';
         } else {
-            if (nomeEv !== "" || palestranteEv !== "" || dataEv !== "" || horaEv !== "" || descricaoEv !== "" && sala != undefined) {
-                axios.post(`http://localhost:8080/Data`, {
+            if (nomeEv !== "" && palestranteEv !== "" && dataEv !== "" && horaEv !== "" && descricaoEv !== "" && sala != undefined) {
+         axios.post(`http://localhost:8080/Data`, {
                     data: dataEv,
-                    sala: sala
+                    idSala: sala
                 })
                     .then(function (response) {
-                        valida = true;
-                    }).catch(function (error) {
-                        valida = false;
+                        th.setState({
+                            valida: response.data,
+                          });
                     })
-            if(valida == true){
-                axios.post(`http://localhost:8080/EventoRegistration`, {
-                    nome: nomeEv,
-                    data: dataEv,
-                    hora: horaEv,
-                    descricao: descricaoEv,
-                    palestrante: palestranteEv,
-                    sala: sala
-                })
-                    .then(function (response) {
+                    console.log(this.state.valida)       
+             if(this.state.valida === true){
+                 axios.post(`http://localhost:8080/EventoRegistration`, {
+                     nome: nomeEv,
+                     data: dataEv,
+                     hora: horaEv,
+                     descricao: descricaoEv,
+                     palestrante: palestranteEv,
+                     sala: sala
+                 })
+                     .then(function (response) {
                         
-                            document.getElementById("nomeEvento").value = ""
-                            document.getElementById("palestrante").value = ""
-                            document.getElementById("data").value = ""
-                            document.getElementById("hora").value = ""
-                            document.getElementById("descricao").value = ""
-                    })
-                    this.setState({
-                        modal: !this.state.modal,
-                    });
-            }
+                             document.getElementById("nomeEvento").value = ""
+                             document.getElementById("palestrante").value = ""
+                             document.getElementById("data").value = ""
+                             document.getElementById("hora").value = ""
+                             document.getElementById("descricao").value = ""
+                     })
+                     this.setState({
+                         modal: !this.state.modal,
+                     });
+             }else{
+                document.getElementById('status').innerHTML = 'Esse local já possui um evento na data escolhida!';
+             }
             } else {
                 document.getElementById('status').innerHTML = 'Preencha todos os campos!';
             }
