@@ -54,13 +54,36 @@ class ListarSalas extends React.Component {
             <div>
                 <div className="divAEsquerda">
                     <br />
+<<<<<<< Updated upstream
                     {this.state.interno.map((dynamicData) =>
+=======
+                    {/* <CardTitle>Disponiveis</CardTitle> */}
+                    {this.state.externoList.map((dynamicData) =>
+>>>>>>> Stashed changes
                         <Card className="CardContainerSala">
                             <Col md={12} sm={6} xs={12}>
                                 <br></br>
                                 <CardTitle className="text-center">Sala {dynamicData.numero}</CardTitle>
+<<<<<<< Updated upstream
                                 <CardTitle className="text-center">Capacidade {dynamicData.capacidade}</CardTitle>
                                 <Button color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
+=======
+            
+                                <Button id="cancel" color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
+                                <br></br>
+                            </Col>
+                        </Card>
+                    )}
+                    {this.state.internoList.map((dynamicData) =>
+                        <Card className="CardContainerSala">
+                            <Col md={12} sm={6} xs={12}>
+                                <br></br>
+                                <CardTitle className="text-center">Sala {dynamicData.numero}</CardTitle>
+                                <CardText>
+                                    Capacidade: {dynamicData.capacidade}
+                                </CardText>
+                                <Button id="cancel" color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
+>>>>>>> Stashed changes
                                 <br></br>
                             </Col>
                         </Card>
@@ -70,7 +93,7 @@ class ListarSalas extends React.Component {
                             <Col md={12} sm={6} xs={12}>
                                 <br></br>
                                 <CardTitle className="text-center"> {dynamicData.descricao}</CardTitle>
-                                <Button color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
+                                <Button id="cancel" color="danger" size="sm" block onClick={this.excluirSala(dynamicData.idSala)}>Remover Sala</Button>
                                 <br></br>
                             </Col>
                         </Card>

@@ -265,7 +265,7 @@ class TelaLogin extends React.Component {
             <Button id="valid" color="success" onClick={this.cadastrarAluno()}>
               Cadastrar
             </Button>
-            <Button color="danger" onClick={this.toggle}>
+            <Button id="cancel"color="danger" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

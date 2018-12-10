@@ -23,7 +23,7 @@ class AuthModal extends React.Component {
   render() {
     return (
       <div>
-        <Button color="danger" onClick={this.toggle}>
+        <Button id="login" color="danger" onClick={this.toggle}>
           Login
         </Button>
         <Modal

@@ -163,7 +163,7 @@ class CadastraEvento extends React.Component {
     render() {
         return (
             <div>
-                <Button color="success" size="sm" onClick={this.toggle}>Novo Evento</Button>
+                <Button id="cadastroEvent" color="success" size="sm" onClick={this.toggle}>Novo Evento</Button>
                 <Modal
                     id="modalSala"
                     isOpen={this.state.modal}
@@ -241,10 +241,10 @@ class CadastraEvento extends React.Component {
                         <Label for="exampleNumber" id="status"></Label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.cadastrar()}>
+                        <Button id="sucessCadastro"color="success" onClick={this.cadastrar()}>
                             Salvar
                         </Button>
-                        <Button color="danger" onClick={this.toggle}>
+                        <Button id="cancel" color="danger" onClick={this.toggle}>
                             Cancel
                         </Button>
                     </ModalFooter>

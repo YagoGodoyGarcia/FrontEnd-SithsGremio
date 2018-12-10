@@ -171,8 +171,8 @@ class ListarEventosAdm extends React.Component {
                             }
                                 className="BorderCard"
                             />
-                            <Button color="success" className="verMaisEvent" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Informações</Button>
-                            <Button color="success" className="verMaisEvent" size="sm" block onClick={this.VerChamada(dynamicData.idEvento)} >Chamada</Button>
+                            <Button id="vermais"color="success" className="verMaisEvent" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Informações</Button>
+                            <Button id="verChamado"color="success" className="verMaisEvent" size="sm" block onClick={this.VerChamada(dynamicData.idEvento)} >Chamada</Button>
                             <br />
                         </Col>
                     </Card>
@@ -238,10 +238,10 @@ class ListarEventosAdm extends React.Component {
                         </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.atualiza()}>
+                        <Button id="sucess" color="success" onClick={this.atualiza()}>
                             Salvar
                     </Button>{' '}
-                        <Button color="danger" onClick={this.toggle()}>
+                        <Button id="cancel" color="danger" onClick={this.toggle()}>
                             Cancel
                     </Button>
                     </ModalFooter>
@@ -267,14 +267,14 @@ class ListarEventosAdm extends React.Component {
                                         <td>{dynamicData.ra}</td>
                                         <td>{dynamicData.nome}</td>
                                         <td>{dynamicData.email}</td>
-                                        <button className="btn btn-danger">Remover</button>
+                                        <button id="remove" className="btn btn-danger">Remover</button>
                                     </tr>
                                 )}
                             </tbody>
                         </Table>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.chamada}>
+                        <Button id="sucessChamado" color="success" onClick={this.chamada}>
                             Baixar
                         </Button>
                     </ModalFooter>

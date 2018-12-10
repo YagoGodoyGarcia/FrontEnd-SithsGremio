@@ -89,7 +89,7 @@ class Header extends React.Component {
       <div>
         <Navbar light className={bem.b('bg-white')}>
           <Nav navbar className="mr-2">
-            <Button outline onClick={this.handleSidebarControlButton}>
+            <Button id="header" outline onClick={this.handleSidebarControlButton}>
               <MdClearAll size={25} />
             </Button>
           </Nav>
@@ -128,7 +128,7 @@ class Header extends React.Component {
             <Button id="valid" color="success" onClick={this.alterarSenha()}>
               Cadastrar
             </Button>
-            <Button color="danger" onClick={this.toggle}>
+            <Button id="cancel" color="danger" onClick={this.toggle}>
               Cancel
             </Button>
           </ModalFooter>

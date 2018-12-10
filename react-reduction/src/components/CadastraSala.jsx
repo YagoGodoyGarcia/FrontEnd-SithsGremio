@@ -103,7 +103,7 @@ class CadastraSala extends React.Component {
     render() {
         return (
             <div>
-                <Button color="success" size="sm" onClick={this.toggle}>Nova Sala</Button>
+                <Button id="cadastraSala" color="success" size="sm" onClick={this.toggle}>Nova Sala</Button>
                 <Modal
                     id="modalSala"
                     isOpen={this.state.modal}
@@ -149,7 +149,7 @@ class CadastraSala extends React.Component {
                         <Label for="exampleNumber" id="statusModal">{this.state.error}</Label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.cadastrar()} >
+                        <Button id="sucessSala"color="primary" onClick={this.cadastrar()} >
                             Cadastrar
                         </Button>
                     </ModalFooter>

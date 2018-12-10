@@ -91,7 +91,7 @@ class ListarEventosAlunos extends React.Component {
                                 }}
                                 className="BorderCard"
                             />
-                            <Button color="success" className="verMaisEventAluno" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
+                            <Button id="cardVags" color="success" className="verMaisEventAluno" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
                             <br />
                         </Col>
                     </Card>
@@ -116,10 +116,10 @@ class ListarEventosAlunos extends React.Component {
                         <Label id="sala"></Label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" id="participar" onClick={this.entrarNoEvento()}>
+                        <Button id="sucess" color="success" id="participar" onClick={this.entrarNoEvento()}>
                             Participar
                         </Button>
-                        <Button color="danger" onClick={this.toggle}>
+                        <Button id="cancel"color="danger" onClick={this.toggle}>
                             Sair
                         </Button>
                     </ModalFooter>

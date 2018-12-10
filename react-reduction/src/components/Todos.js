@@ -33,7 +33,7 @@ const Todos = ({ todos, ...restProps }) => {
           </FormGroup>
         </ListGroupItem>
       ))}
-      <Button block>Add</Button>
+      <Button id="add" block>Add</Button>
     </ListGroup>
   );
 };

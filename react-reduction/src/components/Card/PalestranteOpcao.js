@@ -18,7 +18,7 @@ const PalestranteOpcao = ({ image, title, subtitle, todos, ...restProps }) => {
             <CardText className="text-white">{subtitle}</CardText>
             </CardImgOverlay>
         </div>
-        <Button color="secondary">Palestrante</Button>
+        <Button id="palestra" color="secondary">Palestrante</Button>
         </Card>
     </div>
     

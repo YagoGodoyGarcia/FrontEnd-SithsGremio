@@ -33,6 +33,7 @@ class AuthModalPage extends React.Component {
   render() {
     const externalCloseBtn = (
       <button
+        id="button"
         className="close"
         style={{
           position: 'absolute',
@@ -54,7 +55,7 @@ class AuthModalPage extends React.Component {
             <Card>
               <CardHeader>Login Modal Example</CardHeader>
               <CardBody>
-                <Button color="danger" onClick={this.toggle}>
+                <Button id="loginbutton"color="danger" onClick={this.toggle}>
                   Click to Login
                 </Button>
                 <Modal

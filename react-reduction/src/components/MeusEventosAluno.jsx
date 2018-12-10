@@ -91,7 +91,7 @@ class MeusEventosAluno extends React.Component {
                                 }}
                                 className="BorderCard"
                             />
-                            <Button color="success" className="verMaisEventAluno" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
+                            <Button id="sucess" color="success" className="verMaisEventAluno" size="sm" block onClick={this.verMaisEv(dynamicData.idEvento)} >Ver Mais</Button>
                             <br />
                         </Col>
                     </Card>
@@ -116,7 +116,7 @@ class MeusEventosAluno extends React.Component {
                         <Label id="sala"></Label>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="danger" size="sm" block id="sair" onClick={this.SairDoEvento()}>
+                        <Button id="cancel" color="danger" size="sm" block id="sair" onClick={this.SairDoEvento()}>
                             Sair
                     </Button>
                     </ModalFooter>

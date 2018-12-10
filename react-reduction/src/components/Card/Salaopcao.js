@@ -18,7 +18,7 @@ const Salaopcao = ({ image, title, subtitle, todos, ...restProps }) => {
             <CardText className="text-white">{subtitle}</CardText>
             </CardImgOverlay>
         </div>
-        <Button color="secondary">Salas</Button>
+        <Button id="salas" color="secondary">Salas</Button>
         </Card>
     </div>
     

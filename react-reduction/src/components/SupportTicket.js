@@ -36,6 +36,7 @@ const SupportTicket = ({
         </Media>
         <Media right className="align-self-center">
           <Button
+            id="teste"
             color="link"
             className={`text-capitalize text-${statusMap[status]}`}
           >
