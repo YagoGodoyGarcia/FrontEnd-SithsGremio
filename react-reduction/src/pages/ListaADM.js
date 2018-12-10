@@ -12,24 +12,51 @@ import {
     Input 
 } from 'reactstrap';
 
-
 class ListaADM extends Component {
 
     constructor(props) {
             super(props);
             this.state = { 
-                ListaUser:[]
+                ListaUser:[],
              }
         }
         componentDidMount(){
             setInterval(() => {
-                var th = this;
-                axios.get(`http://localhost:8080/ListaAluno`)
-                .then(function (result) {
-                    th.setState({
-                        ListaUser: result.data
+                console.log(localStorage.idAluno)
+                var List=[]
+                List = document.getElementById("userList").value
+                if(List == 1){
+                    this.state.ListaUser=[]
+                    var th = this;
+                    axios.get(`http://localhost:8080/ListaAlunos`)
+                    .then(function (result) {
+                        th.setState({
+                            ListaUser: result.data
+                        });
                     });
-                });
+                }
+                else if(List == 2){
+                    this.state.ListaUser=[]
+                    var th = this;
+                    axios.get(`http://localhost:8080/ListaAdms`)
+                    .then(function (result) {
+                        th.setState({
+                            ListaUser: result.data
+                        });
+                    });
+
+                }
+                else{
+                    this.state.ListaUser=[]
+                    var th = this;
+                    axios.get(`http://localhost:8080/ListaUsuarios`)
+                    .then(function (result) {
+                        th.setState({
+                            ListaUser: result.data
+                        });
+                    });
+                }
+
             },500)
         }
         toggle = () => {
@@ -96,23 +123,26 @@ class ListaADM extends Component {
             }
           }
         deletaUser= RemoveUser => () => {
-            console.log(RemoveUser)
-                // this.state.ListaUser.forEach((user)=>{
-                //     if(user.idAluno == RemoveUser){
-                //         axios.DELETE(`http://localhost:8080/AlunoRegistration`, {
-                //             idAluno:user.idAluno,
-                //             nome: user.nome,
-                //             ra: user.ra,
-                //             email: user.email,
-                //             senha: user.senha,
-                //             nivelPermissao: user.nivelPermissao
-                //         })
-                //     }
-                // })
+            console.log(localStorage.idAluno)
+                if(RemoveUser == localStorage.idAluno){
+                    alert("Você Nao Pode Excluir esse Usuario")
+                }
+                else{
+                    axios.post(`http://localhost:8080//DeletaAdm?id_adm=`+RemoveUser)
+                }
             }
         render() { 
                 return ( 
                     <div>
+                        <center>
+                            <FormGroup>
+                                <Input style={{width: "50%"}}type="select" name="select" id="userList" >
+                                    <option value="">Escolha o nivel de Usuario</option>
+                                    <option value="1">Comum</option>
+                                    <option value="2">ADM</option>
+                                </Input>
+                            </FormGroup>
+                        </center>
                     <Table>
                         <thead>
                             <tr>
@@ -125,16 +155,16 @@ class ListaADM extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.ListaUser.map((Lista,i) =>
-                            <tr id="usuario">
-                                <th scope="row">{i}</th>
-                                <td>{Lista.nome}</td>
-                                <td>{Lista.email}</td>
-                                <td>{Lista.ra}</td>
-                                <td>{Lista.nivelPermissao}</td>
-                                <td><button id="removeUser" type="button" class="userDados btn btn-danger" onClick={this.deletaUser(Lista.idAluno)}>Remover</button></td>
-                            </tr>
-                            )}
+                                {this.state.ListaUser.map((Lista,i) =>
+                                <tr>
+                                    <th scope="row">{i+1}</th>
+                                    <td>{Lista.nome}</td>
+                                    <td>{Lista.email}</td>
+                                    <td>{Lista.ra}</td>
+                                    <td>{Lista.nivelPermissao}</td>
+                                    <td><button id="removeUser" type="button" class="userDados btn btn-danger" onClick={this.deletaUser(Lista.idAluno)}>Remover</button></td>
+                                </tr>
+                                )}
                         </tbody>
                     </Table>
                     <Modal

@@ -103,6 +103,7 @@ class TelaLogin extends React.Component {
       senha: senhaAt
     })
       .then(function (response) {
+        console.log(response.data.nivelPermissao)
         if (response.data !== "Login Incorreto") {
           localStorage.setItem('idAluno', response.data.idAluno);
           localStorage.setItem('nome', response.data.nome);
@@ -110,13 +111,17 @@ class TelaLogin extends React.Component {
           localStorage.setItem('email', response.data.email);
           localStorage.setItem('senha', response.data.senha);
           localStorage.setItem('permissao', response.data.nivelPermissao);
-          if (localStorage.getItem('permissao') == 2) {
+          if (localStorage.getItem('permissao') == 3) {
+            browserHistory.push('/ADMaster')
+          }
+          else if (localStorage.getItem('permissao') == 2) {
             browserHistory.push('/ADM')
           } else {
             browserHistory.push('/ALUNO')
           }
         } else {
-          document.getElementById('statusModal').innerHTML = 'Usuario ou senha incorreta.Tente novamente'        }
+          document.getElementById('statusModal').innerHTML = 'Senha ou Email invalidos!'
+        }
       })
       .catch(function (error) {
         console.log(error);
@@ -148,7 +153,7 @@ class TelaLogin extends React.Component {
         modal: !this.state.modal,
       });
     } else {
-      document.getElementById('statusModal').innerHTML = 'Preencha todos os campos!';
+      document.getElementById('statusModal').innerHTML = 'Email ou senha Invalida!';
     }
   }
   render() {

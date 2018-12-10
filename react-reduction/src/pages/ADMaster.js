@@ -10,7 +10,7 @@ import {browserHistory} from 'react-router';
 const getBasename = () => {
     return `/${process.env.PUBLIC_URL.split('/').pop()}`;
   };
-class ADM extends React.Component {
+class ADMAster extends React.Component {
     render() {
         if(localStorage.getItem("nome") == null){
             browserHistory.push('/Login')
@@ -30,6 +30,12 @@ class ADM extends React.Component {
                   path="/EventosAdm"
                   layout={MainLayout}
                   component={EventosADm}
+                />
+                <LayoutRoute
+                  exact
+                  path="/ListaAdm"
+                  layout={MainLayout}
+                  component={ListADM}
                 />
                 <Redirect to="/EventosADm" />
               </Switch>
@@ -63,4 +69,4 @@ class ADM extends React.Component {
       return { breakpoint: 'xs' };
     };
     
-export default componentQueries(query)(ADM);
+export default componentQueries(query)(ADMAster);

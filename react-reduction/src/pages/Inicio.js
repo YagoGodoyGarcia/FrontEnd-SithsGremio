@@ -2,98 +2,119 @@ import React from 'react';
 import '../styles/CardEventos.css';
 import ecommerce from '../styles/image/ecommerce.jpeg';
 import eventos from '../styles/image/eventos.jpeg';
-
-
 import Page from 'components/Page';
 import {
-  Card,
-  Col,
-  Row,
-  CardImgOverlay,
-  CardTitle,
-  CardText
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption
 } from 'reactstrap';
 import { browserHistory } from 'react-router';
-var toque = 0
+const items = [
+  {
+    id: 1,
+    src: ecommerce,
+    caption: 'Loja Bandtec'
+  },
+  {
+    id: 2,
+    src: eventos,
+    caption: 'Cadastro de Eventos'
+  },
+];
 class Inicio extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      eventos: props.text,
-      gremio: props.text
-    }
+    this.state = { activeIndex: 0 };
+    this.next = this.next.bind(this);
+    this.previous = this.previous.bind(this);
+    this.goToIndex = this.goToIndex.bind(this);
+    this.onExiting = this.onExiting.bind(this);
+    this.onExited = this.onExited.bind(this);
   }
-  componentDidMount() {
-    setInterval(() => {
-      if (toque == 1) {
-        this.setState({ eventos: 'Eventos' })
-        this.setState({ gremio: '' })
 
+  onExiting() {
+    this.animating = true;
+  }
+
+  onExited() {
+    this.animating = false;
+  }
+
+  next() {
+    if (this.animating) return;
+    const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
+    this.setState({ activeIndex: nextIndex });
+  }
+
+  previous() {
+    if (this.animating) return;
+    const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
+    this.setState({ activeIndex: nextIndex });
+  }
+
+  goToIndex(newIndex) {
+    if (this.animating) return;
+    this.setState({ activeIndex: newIndex });
+  }
+  chamado= UserURL => () => {
+    console.log(UserURL)
+      if(UserURL ==1){
+        // document.getElementById('siteselect').href("http://35.193.12.25/");
       }
-      else if (toque == 2) {
-        this.setState({ gremio: 'Loja Do Gremio' })
-        this.setState({ eventos: '' })
+      else{
+        browserHistory.push('/Login')
       }
-    }, 5)
   }
-  moveR() {
-    var element = document.getElementById("evento");
-    element.classList.add("text-lojaL")
-    var elementR = document.getElementById("evento");
-    elementR.classList.add("text-titleR")
-    toque = 1
-  }
-  move() {
-    let element = document.getElementById("LojadoGrêmio");
-    element.classList.add("text-loja")
-    let elementR = document.getElementById("LojadoGrêmio");
-    elementR.classList.add("text-title")
-    toque = 2
-  }
-  displayNoneR() {
-    let element = document.getElementById("evento");
-    element.classList.remove("text-lojaL");
-    let elementR = document.getElementById("evento");
-    elementR.classList.remove("text-titleR");
-  }
-  displayNone() {
-    let element = document.getElementById("LojadoGrêmio");
-    element.classList.remove("text-loja");
-    let elementR = document.getElementById("LojadoGrêmio");
-    elementR.classList.remove("text-title");
-  }
-  Chamada() {
-    browserHistory.push('/Login')
-  }
-  render() {
+    render() {
+    const { activeIndex } = this.state;
+
+    const slides = items.map((item) => {
+      return (
+        <CarouselItem
+          className="custom-tag"
+          tag="div"
+          key={item.id}
+          onExiting={this.onExiting}
+          onExited={this.onExited}
+        >
+        <img  id="siteselect" href=""className="imag-tag"src={item.src} onClick={this.chamado(item.id)} ></img>
+          <CarouselCaption className="text-danger"captionHeader={item.caption} />
+        </CarouselItem>
+      );
+    });
+
     return (
-      <Page className="body-inicio">
-        <Row>
-          <Col className="card-item">
-            <a href="http://35.193.12.25/"  target="_blank">
-              <Card inverse className="text-center cardInicio" onMouseLeave={this.displayNone} onMouseOver={this.move}  >
-                <img className="card-item" src={ecommerce} />
-                <CardImgOverlay>
-                  <CardTitle id='LojadoGrêmio'>
-                    <h3 id="lojaCard">{this.state.gremio}</h3>
-                  </CardTitle>
-                </CardImgOverlay>
-              </Card>
-            </a>
-          </Col>
-          <Col className="card-item">
-            <Card inverse className="text-center cardInicio" onMouseLeave={this.displayNoneR} onMouseOver={this.moveR} onClick={this.Chamada}>
-              <img className="card-item" src={eventos} />
-              <CardImgOverlay>
-                <CardTitle id="evento">
-                  <h3 id="lojaCard">{this.state.eventos}</h3>
-                </CardTitle>
-              </CardImgOverlay>
-            </Card>
-          </Col>
-        </Row>
-      </Page>
+      <div>
+        <style>
+          {
+            `.custom-tag {
+                max-width: 100%;
+                height: 40.19em;
+                background: black;
+              }
+              .imag-tag {
+                width: 100%;
+                height: 40.19em;
+                background: black;
+              }`
+
+          }
+        </style>
+        <Carousel
+          activeIndex={activeIndex}
+          next={this.next}
+          previous={this.previous}
+        >
+          <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
+          {slides}
+          <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
+          <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
+        </Carousel>
+      </div>
     );
   }
 }
+
 export default Inicio;

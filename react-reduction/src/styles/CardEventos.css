@@ -130,5 +130,12 @@
 .displayblock{
     display: block !important;
 }
-
-
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 85%, 100% !important;
+    border-radius: 10px;
+    background-color: #908f8f !important;
+    padding: 14px;
+    width: 80px !important;
+    height: 80px !important;
+}

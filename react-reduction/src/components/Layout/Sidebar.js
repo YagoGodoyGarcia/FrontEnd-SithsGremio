@@ -42,10 +42,15 @@ class Sidebar extends React.Component {
       navItems = [
         { to: '/EventosAdm', name: 'Eventos', exact: true, Icon: MdDashboard },
         { to: '/Salas', name: 'Salas', exact: true, Icon: MdWidgets },
-        { to: '/ListaADM', name: 'Lista de ADM', exact: true, Icon: MdWidgets },
-
       ];
-    } else {
+    } 
+    else if (localStorage.getItem('permissao') == 3) {
+      navItems = [
+        { to: '/EventosAdm', name: 'Eventos', exact: true, Icon: MdDashboard },
+        { to: '/Salas', name: 'Salas', exact: true, Icon: MdWidgets },
+        { to: '/ListaADM', name: 'Lista de ADM', exact: true, Icon: MdWidgets },
+      ];
+    }else {
       navItems = [
         { to: '/AlunoEventos', name: 'Eventos', exact: true, Icon: MdDashboard },
         { to: '/MeusEventos', name: 'Minha Lista', exact: true, Icon: MdWidgets }

@@ -11,6 +11,7 @@ import ListADM from 'pages/ListaADM'
 import ALUNO from 'pages/ALUNO';
 import Salas from 'pages/Salas';
 import EventosADm from 'pages/ListaDeEventos';
+import ADMaster from 'pages/ADMaster'
 ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
@@ -19,6 +20,10 @@ ReactDOM.render(
         <Route path="/EventosAlunos" component={EventosParaAlunos} />
         <Route path="/Login" component={Login} />
         <Route path="/ADM" component={ADM}>
+            <Route path="/Salas" component={Salas} />
+            <Route path="/EventosAdm" component={EventosADm} />
+        </Route>
+        <Route path="/ADMaster" component={ADMaster}>
             <Route path="/Salas" component={Salas} />
             <Route path="/EventosAdm" component={EventosADm} />
             <Route path="/ListaAdm" component={ListADM} />
