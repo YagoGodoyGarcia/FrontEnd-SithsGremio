@@ -116,8 +116,7 @@ class TelaLogin extends React.Component {
             browserHistory.push('/ALUNO')
           }
         } else {
-          document.getElementById('statusModal').innerHTML = 'Senha ou Email invalidos!'
-        }
+          document.getElementById('statusModal').innerHTML = 'Usuario ou senha incorreta.Tente novamente'        }
       })
       .catch(function (error) {
         console.log(error);

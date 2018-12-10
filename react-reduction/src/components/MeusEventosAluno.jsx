@@ -33,7 +33,7 @@ class MeusEventosAluno extends React.Component {
                         customersList: result.data
                     });
                 });
-        }, 5000)
+        }, 500)
     }
     state = {
         modal: false,

@@ -38,7 +38,7 @@ class ListarSalas extends React.Component {
                 }
 
             }
-        }, 5000)
+        }, 500)
     }
     excluirSala = idSalaClick => () => {
         axios.post(`http://localhost:8080/DeleteSala?id_sala=` + idSalaClick)
