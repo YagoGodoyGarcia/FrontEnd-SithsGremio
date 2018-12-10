@@ -31,16 +31,6 @@ class CadastraEvento extends React.Component {
                     customersListEventos: result.data
                 });
             });
-        // Evento Interno
-        setInterval(() => {
-            var th = this;
-            axios.get(`http://localhost:8080/ListaSala`)
-                .then(function (result) {
-                    th.setState({
-                        customersListSalas: result.data
-                    });
-                });
-        }, 5000)
         setInterval(() => {
             var th = this;
             axios.get(`http://localhost:8080/ListaSala`)
@@ -60,7 +50,7 @@ class CadastraEvento extends React.Component {
                 }
 
             }
-        }, 5000)
+        }, 500)
     }
     cadastrar = modalType => () => {
         var th = this

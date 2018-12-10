@@ -33,7 +33,7 @@ class ListarEventosAdm extends React.Component {
                         customersList: result.data
                     });
                 });
-        }, 5000)
+        }, 500)
         setInterval(() => {
             var th = this;
             axios.get(`http://localhost:8080/ListaSala`)
@@ -42,7 +42,7 @@ class ListarEventosAdm extends React.Component {
                         customersListSalas: result.data
                     });
                 });
-        }, 5000)
+        }, 500)
     }
 
     atualiza = modalType => () => {
