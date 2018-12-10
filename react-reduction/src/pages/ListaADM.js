@@ -55,8 +55,46 @@ class ListaADM extends Component {
                     senha: senhaU,
                     nivelPermissao: nivelU
                 })
+                this.setState({
+                    modal: !this.state.modal,
+                });
             }
         }
+        valida() {
+            let separa
+            let separa2
+            var danger = 0
+            let emailAluno = document.getElementById("Email").value
+            separa = emailAluno.split('')
+            for (var i = 0; i < separa.length; i++) {
+              if (separa[i] == "@") {
+                separa2 = emailAluno.split('@')
+              }
+              else {
+                danger = danger + 1
+                console.log(danger)
+                if (danger == separa.length) {
+                  var element = document.getElementById("Email");
+                  var element2 = document.getElementById("emailInvalido");
+                  element.classList.add("border-danger")
+                  element2.classList.add("displayblock")
+                  document.getElementById("sucessCadastro").disabled = true;
+                }
+              }
+            }
+            if (separa2 != undefined) {
+              for (var i = 0; i < separa2.length; i++) {
+                separa = separa2[i].split('.')
+                if (separa[i] == 'com') {
+                  var element = document.getElementById("Email");
+                  var element2 = document.getElementById("emailInvalido");
+                  element2.classList.remove("displayblock")
+                  element.classList.remove("border-danger")
+                  document.getElementById("sucessCadastro").disabled = false;
+                }
+              }
+            }
+          }
         deletaUser= RemoveUser => () => {
             console.log(RemoveUser)
                 // this.state.ListaUser.forEach((user)=>{
@@ -122,7 +160,9 @@ class ListaADM extends Component {
                                 name="email"
                                 id="Email"
                                 placeholder="Digite o Email"
+                                onBlur={this.valida}
                             />
+                            <Label className="displaynone" id="emailInvalido" style={{ color: "red", fontWeight: "bold", marginBottom: "0px" }}>Email Invalido</Label>
                         </FormGroup>
                         <FormGroup>
                             <Label for="exampleDate">RA</Label>
