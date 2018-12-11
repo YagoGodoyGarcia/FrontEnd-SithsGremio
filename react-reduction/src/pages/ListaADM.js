@@ -11,20 +11,20 @@ import {
     Label,
     Input 
 } from 'reactstrap';
-
+var lista = 0
 class ListaADM extends Component {
 
     constructor(props) {
             super(props);
             this.state = { 
                 ListaUser:[],
-             }
+            }
+            this.value=[]
+
         }
         componentDidMount(){
             setInterval(() => {
-                console.log(localStorage.idAluno)
-                let List = document.getElementById("userList").value
-                if(List == 1){
+                if(lista == 1){
                     this.state.ListaUser=[]
                     var th = this;
                     axios.get(`http://localhost:8080/ListaAlunos`)
@@ -34,7 +34,7 @@ class ListaADM extends Component {
                         });
                     });
                 }
-                else if(List == 2){
+                else if(lista == 2){
                     this.state.ListaUser=[]
                     var th = this;
                     axios.get(`http://localhost:8080/ListaAdms`)
@@ -55,7 +55,6 @@ class ListaADM extends Component {
                         });
                     });
                 }
-
             },500)
         }
         toggle = () => {
@@ -124,24 +123,28 @@ class ListaADM extends Component {
         deletaUser= RemoveUser => () => {
             console.log(localStorage.idAluno)
                 if(RemoveUser == localStorage.idAluno){
-                    alert("Você Nao Pode Excluir esse Usuario")
+                    alert("Você não pode excluir esse usuario")
                 }
                 else{
                     axios.post(`http://localhost:8080//DeletaAdm?id_adm=`+RemoveUser)
                 }
             }
+        tipoChamada(){
+            lista = document.getElementById("userList").value
+        }
         render() { 
                 return ( 
                     <div>
                         <center>
                             <FormGroup>
-                                <Input style={{width: "50%"}}type="select" name="select" id="userList" >
+                                <Input style={{width: "40%"}} type="select" name="select" id="userList" onClick={this.tipoChamada} >
                                     <option value="0">Escolha o nivel de Usuario</option>
                                     <option value="1">Comum</option>
                                     <option value="2">ADM</option>
                                 </Input>
                             </FormGroup>
                         </center>
+
                     <Table>
                         <thead>
                             <tr>
