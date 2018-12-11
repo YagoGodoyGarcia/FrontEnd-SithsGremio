@@ -28,7 +28,7 @@ import {
 
 const bem = bn.create('header');
 
-
+var valor = 0
 class Header extends React.Component {
   state = {
     isOpenNotificationPopover: false,
@@ -66,10 +66,15 @@ class Header extends React.Component {
       modal: !this.state.modal,
     });
   };
+  sucess = () => {
+    this.setState({
+      modalvalida: !this.state.modalvalida,
+    });
+  };
   alterarSenha = modalType => () => {
     let senha = document.getElementById("senha").value
     let senhaConfirma = document.getElementById("senhaConfirma").value
-    if (senha == senhaConfirma) {
+    if (senha == senhaConfirma && senha != "" && senhaConfirma != "") {
       axios.post(`http://localhost:8080/alterarSenha`, {
         id_aluno: localStorage.idAluno,
         senha: senha
@@ -80,10 +85,14 @@ class Header extends React.Component {
       this.setState({
         modal: !this.state.modal,
       });
-      alert("Usuario Cadastrado")
-
+      valor=1
+      if(valor == 1){
+        this.setState({
+          modalvalida: !this.state.modalvalida,
+        });
+      }
     } else {
-      document.getElementById('statusModal').innerHTML = 'As senhas não são iguais!'
+      document.getElementById('statusModal').innerHTML = 'Senha Incorreta!'
     }
   }
   render() {
@@ -134,6 +143,18 @@ class Header extends React.Component {
               Cancel
             </Button>
           </ModalFooter>
+        </Modal>
+        <Modal
+          id="modalSala"
+          isOpen={this.state.modalvalida}
+          toggle={this.sucess}
+          className={this.props.className}>
+          <ModalHeader toggle={this.sucess}>Alterar Senha</ModalHeader>
+          <ModalBody>
+            <FormGroup>
+              <Label>Senha alterada com sucesso</Label>
+            </FormGroup>
+          </ModalBody>
         </Modal>
       </div>
     );
