@@ -121,12 +121,11 @@ class ListaADM extends Component {
             }
           }
         deletaUser= RemoveUser => () => {
-            console.log(localStorage.idAluno)
                 if(RemoveUser == localStorage.idAluno){
                     alert("Você não pode excluir esse usuario")
                 }
                 else{
-                    axios.post(`http://localhost:8080//DeletaAdm?id_adm=`+RemoveUser)
+                    axios.post(`http://localhost:8080/DeletaAdm?id_adm=`+RemoveUser)
                 }
             }
         tipoChamada(){

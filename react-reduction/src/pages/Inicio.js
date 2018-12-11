@@ -86,7 +86,7 @@ class Inicio extends React.Component {
         >
         <a id="loja" href="" style={{textDecoration: 'none'}}> 
         <img  id="siteselect" className="imag-tag"src={item.src} onClick={this.chamado(item.id)} />
-        <center><h1 className="inicioTexto">{item.caption}</h1></center>
+        <center><h1 className="inicioTexto" onClick={this.chamado(item.id)}>{item.caption}</h1></center>
         </a>  
         </CarouselItem>
       );

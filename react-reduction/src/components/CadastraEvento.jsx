@@ -79,18 +79,7 @@ class CadastraEvento extends React.Component {
         if (ambiente === '') {
             document.getElementById('status').innerHTML = 'Escolha um local!';
         } else {
-            if (nomeEv !== "" && palestranteEv !== "" && dataEv !== "" && horaEv !== "" && descricaoEv !== "" && sala != undefined) {
-         axios.post(`http://localhost:8080/Data`, {
-                    data: dataEv,
-                    idSala: sala
-                })
-                    .then(function (response) {
-                        th.setState({
-                            valida: response.data,
-                          });
-                    })
-                    console.log(this.state.valida)       
-             if(this.state.valida === true){
+            if (nomeEv !== "" && palestranteEv !== "" && dataEv !== "" && horaEv !== "" && descricaoEv !== "" && sala != undefined) {     
                  axios.post(`http://localhost:8080/EventoRegistration`, {
                      nome: nomeEv,
                      data: dataEv,
@@ -110,9 +99,6 @@ class CadastraEvento extends React.Component {
                      this.setState({
                          modal: !this.state.modal,
                      });
-             }else{
-                document.getElementById('status').innerHTML = 'Esse local já possui um evento na data escolhida!';
-             }
             } else {
                 document.getElementById('status').innerHTML = 'Preencha todos os campos!';
             }

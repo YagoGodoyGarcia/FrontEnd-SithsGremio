@@ -15,6 +15,7 @@ import {
 } from 'reactstrap';
 import { NumberWidget } from 'components/Widget';
 
+var idEvento = 0
 class ListarEventosAdm extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +23,7 @@ class ListarEventosAdm extends React.Component {
             customersList: [],
             customersListSalas: [],
             customerChamada: [],
+            idEvento: [],
         };
     }
     componentDidMount() {
@@ -100,6 +102,15 @@ class ListarEventosAdm extends React.Component {
                 console.log(error)
             })
     }
+    remove = RemoverEV =>() =>{
+        console.log(RemoverEV)
+        console.log(this.state.idEvento)
+        axios.post(`http://localhost:8080/SairDoEvento`,{
+            id_evento: RemoverEV,
+            id_aluno: this.state.idEvento,
+        })
+
+    }
     verMaisEv = idEventoClick => (modalType) => {
         axios.get(`http://localhost:8080/OneEvento?id_evento=` + idEventoClick)
             .then(function (result) {
@@ -128,6 +139,9 @@ class ListarEventosAdm extends React.Component {
                     th.setState({
                         customerChamada: result.data.alunos
                     });
+                    th.setState({
+                        idEvento: result.data.idEvento
+                    })
                     document.getElementById("tituloChamada").innerHTML = "Chamada do Evento: " + result.data.nome
                 });
         
@@ -151,7 +165,6 @@ class ListarEventosAdm extends React.Component {
             [`modal_${modalType}`]: !this.state[`modal_${modalType}`],
         });
     };
-   
     render() {
         return (
             <div>
@@ -248,11 +261,12 @@ class ListarEventosAdm extends React.Component {
                 </Modal>
 
                 <Modal
+                    style={{width:  "560px"}}
                     isOpen={this.state.modalCM}
                     toggle={this.chamada}
                     className={this.props.className}>
                     <ModalHeader toggle={this.chamada} id="tituloChamada">Chamada </ModalHeader>
-                    <ModalBody>
+                    <ModalBody >
                         <Table >
                             <thead>
                                 <tr>
@@ -267,7 +281,7 @@ class ListarEventosAdm extends React.Component {
                                         <td>{dynamicData.ra}</td>
                                         <td>{dynamicData.nome}</td>
                                         <td>{dynamicData.email}</td>
-                                        <button id="remove" className="btn btn-danger">Remover</button>
+                                        <td style={{color: "red",cursor: 'pointer'}}  onClick={this.remove(dynamicData.idAluno)}>X</td>
                                     </tr>
                                 )}
                             </tbody>
@@ -275,7 +289,7 @@ class ListarEventosAdm extends React.Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button id="sucessChamado" color="success" onClick={this.chamada}>
-                            Baixar
+                            Fechar
                         </Button>
                     </ModalFooter>
                 </Modal>
