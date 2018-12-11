@@ -121,11 +121,12 @@ class TelaLogin extends React.Component {
             browserHistory.push('/ALUNO')
           }
         } else {
-          document.getElementById('statusModal').innerHTML = 'Senha ou Email invalidos!'
         }
       })
       .catch(function (error) {
         console.log(error);
+        document.getElementById('statusModal').innerHTML = 'Senha ou Email invalidos!'
+
       });
   }
   cadastrarAluno = modalType => () => {

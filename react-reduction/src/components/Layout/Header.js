@@ -80,6 +80,8 @@ class Header extends React.Component {
       this.setState({
         modal: !this.state.modal,
       });
+      alert("Usuario Cadastrado")
+
     } else {
       document.getElementById('statusModal').innerHTML = 'As senhas não são iguais!'
     }
@@ -100,16 +102,16 @@ class Header extends React.Component {
           isOpen={this.state.modal}
           toggle={this.toggle}
           className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Evento</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Alterar Senha</ModalHeader>
           <ModalBody>
             <FormGroup>
-              <Label for="exampleUrl">Senha</Label>
+              <Label for="exampleUrl">Nova Senha</Label>
               <Input
                 type="password"
                 name="password"
                 ref="senha"
                 id="senha"
-                placeholder="password"
+                placeholder="Digite a senha:"
               />
             </FormGroup>
             <FormGroup>
@@ -119,14 +121,14 @@ class Header extends React.Component {
                 name="password"
                 ref="senha"
                 id="senhaConfirma"
-                placeholder="password"
+                placeholder="Digite a Nova Senha:"
               />
             </FormGroup>
             <Label for="exampleNumber" id="statusModal"></Label>
           </ModalBody>
           <ModalFooter>
             <Button id="valid" color="success" onClick={this.alterarSenha()}>
-              Cadastrar
+              Atualizar
             </Button>
             <Button id="cancel" color="danger" onClick={this.toggle}>
               Cancel
