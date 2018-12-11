@@ -139,3 +139,10 @@
     width: 80px !important;
     height: 80px !important;
 }
+.inicioTexto{
+    color: white;
+    position: relative;
+    bottom: 400px;
+    font-size: 100px;
+    text-shadow: 0.1em 0.1em 0.2em black; 
+}

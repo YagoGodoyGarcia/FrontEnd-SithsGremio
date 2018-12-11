@@ -2,7 +2,6 @@ import React from 'react';
 import '../styles/CardEventos.css';
 import ecommerce from '../styles/image/ecommerce.jpeg';
 import eventos from '../styles/image/eventos.jpeg';
-import Page from 'components/Page';
 import {
   Carousel,
   CarouselItem,
@@ -33,7 +32,12 @@ class Inicio extends React.Component {
     this.onExiting = this.onExiting.bind(this);
     this.onExited = this.onExited.bind(this);
   }
-
+  // componentDidMount(){
+  //   setInterval(() =>{
+  //       let teste = document.getElementsByClassName('custom-tag')
+  //       console.log(teste)
+  //   },50)
+  // }
   onExiting() {
     this.animating = true;
   }
@@ -60,8 +64,9 @@ class Inicio extends React.Component {
   }
   chamado= UserURL => () => {
     console.log(UserURL)
-      if(UserURL ==1){
-        // document.getElementById('siteselect').href("http://35.193.12.25/");
+      if(UserURL == 1){
+        document.getElementById("loja").href = "http://35.193.12.25/";
+        document.getElementById("loja").target = '_blank'
       }
       else{
         browserHistory.push('/Login')
@@ -79,8 +84,10 @@ class Inicio extends React.Component {
           onExiting={this.onExiting}
           onExited={this.onExited}
         >
-        <img  id="siteselect" href=""className="imag-tag"src={item.src} onClick={this.chamado(item.id)} ></img>
-          <CarouselCaption className="text-danger"captionHeader={item.caption} />
+        <a id="loja" href="" style={{textDecoration: 'none'}}> 
+        <img  id="siteselect" className="imag-tag"src={item.src} onClick={this.chamado(item.id)} />
+        <center><h1 className="inicioTexto">{item.caption}</h1></center>
+        </a>  
         </CarouselItem>
       );
     });
@@ -91,12 +98,12 @@ class Inicio extends React.Component {
           {
             `.custom-tag {
                 max-width: 100%;
-                height: 40.19em;
+                height: 42em;
                 background: black;
               }
               .imag-tag {
                 width: 100%;
-                height: 40.19em;
+                height: 42em;
                 background: black;
               }`
 
