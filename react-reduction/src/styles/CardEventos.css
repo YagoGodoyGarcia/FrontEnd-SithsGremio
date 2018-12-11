@@ -139,7 +139,6 @@
     width: 80px !important;
     height: 80px !important;
 }
-<<<<<<< Updated upstream
 .inicioTexto{
     color: white;
     position: relative;
@@ -147,7 +146,6 @@
     font-size: 100px;
     text-shadow: 0.1em 0.1em 0.2em black; 
 }
-=======
 .imgLogin{
     width: 100%;
     height: 40.19em;
@@ -159,4 +157,3 @@
 .buttonlogin{
     width: 30%
 }
->>>>>>> Stashed changes
