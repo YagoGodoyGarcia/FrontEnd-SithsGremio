@@ -12,6 +12,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap';
+import '../styles/CardEventos.css'
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 class TelaLogin extends React.Component {
@@ -186,29 +187,9 @@ class TelaLogin extends React.Component {
             </FormGroup>
           )}
           <Label for="exampleNumber" id="statusModal"></Label>
+          <center><button id="CadastraUser" type="button" class="buttonlogin btn btn-primary" onClick={this.auth} style={{width: '80%'}}>Login</button></center>
           <hr />
-          <Button
-            size="lg"
-            className="bg-gradient-theme-left border-0"
-            block
-            onClick={this.auth}>
-            {this.renderButtonText()}
-          </Button>
-          <div className="text-center pt-1">
-            <h6>---</h6>
-            <h6>
-              {this.isSignup ? (
-                <a href="#login" onClick={this.auth}>
-                  Login
-              </a>
-              ) : (
-                  <a href="#signup" onClick={this.toggle}>
-                    Cadastrar
-              </a>
-                )}
-            </h6>
-          </div>
-
+          <center><button id="CadastraUser" type="button" class="buttonlogin btn btn-success" onClick={this.toggle} style={{width: '80%'}}>Cadastrar</button></center>
           {children}
         </Form>
         <Modal

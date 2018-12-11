@@ -23,8 +23,7 @@ class ListaADM extends Component {
         componentDidMount(){
             setInterval(() => {
                 console.log(localStorage.idAluno)
-                var List=[]
-                List = document.getElementById("userList").value
+                let List = document.getElementById("userList").value
                 if(List == 1){
                     this.state.ListaUser=[]
                     var th = this;
@@ -137,7 +136,7 @@ class ListaADM extends Component {
                         <center>
                             <FormGroup>
                                 <Input style={{width: "50%"}}type="select" name="select" id="userList" >
-                                    <option value="">Escolha o nivel de Usuario</option>
+                                    <option value="0">Escolha o nivel de Usuario</option>
                                     <option value="1">Comum</option>
                                     <option value="2">ADM</option>
                                 </Input>
