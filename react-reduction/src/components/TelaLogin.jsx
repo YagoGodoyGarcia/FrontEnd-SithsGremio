@@ -187,7 +187,7 @@ class TelaLogin extends React.Component {
             </FormGroup>
           )}
           <Label for="exampleNumber" id="statusModal"></Label>
-          <center><button id="CadastraUser" type="button" class="buttonlogin btn btn-primary" onClick={this.auth} style={{width: '80%'}}>Login</button></center>
+          <center><button id="loginUser" type="button" class="buttonlogin btn btn-primary" onClick={this.auth} style={{width: '80%'}}>Login</button></center>
           <hr />
           <center><button id="CadastraUser" type="button" class="buttonlogin btn btn-success" onClick={this.toggle} style={{width: '80%'}}>Cadastrar</button></center>
           {children}

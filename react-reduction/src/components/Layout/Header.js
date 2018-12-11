@@ -93,7 +93,7 @@ class Header extends React.Component {
               <MdClearAll size={25} />
             </Button>
           </Nav>
-          <CardTitle id="ola" innerHTML="Ola" onClick={this.toggle}>{"Olá " + localStorage.getItem('nome')}</CardTitle>
+          <Button id="ola"  className="btn-success"innerHTML="Ola" onClick={this.toggle}>{"Seja Bem Vindo " + localStorage.getItem('nome')}</Button>
         </Navbar>
         <Modal
           id="modalSala"
