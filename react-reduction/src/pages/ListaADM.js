@@ -12,6 +12,7 @@ import {
     Input 
 } from 'reactstrap';
 var lista = 0
+var UseRemove
 class ListaADM extends Component {
 
     constructor(props) {
@@ -65,6 +66,21 @@ class ListaADM extends Component {
             } else {
                 alert("Cadastre uma sala primeiro!");
             };
+        }
+        cancelaModal = () => {
+            this.setState({
+                ModalRemove: !this.state.ModalRemove,
+            });
+        }
+        RemoveSucess=()=>{
+            console.log(UseRemove)
+                if(UseRemove!=undefined && UseRemove != ""){
+                    axios.post(`http://localhost:8080/DeletaAdm?id_adm=`+UseRemove)
+                    console.log("Funcionou")
+                    this.setState({
+                        ModalRemove: !this.state.ModalRemove,
+                    });
+                }
         }
         cadastraUser= modalType => () => {
             let nomeU = document.getElementById("nomeUser").value
@@ -125,12 +141,17 @@ class ListaADM extends Component {
                     alert("Você não pode excluir esse usuario")
                 }
                 else{
-                    axios.post(`http://localhost:8080/DeletaAdm?id_adm=`+RemoveUser)
+                    UseRemove = RemoveUser
+                    this.setState({
+                        ModalRemove: !this.state.ModalRemove,
+                    });  
                 }
             }
         tipoChamada(){
             lista = document.getElementById("userList").value
         }
+
+        
         render() { 
                 return ( 
                     <div>
@@ -233,6 +254,20 @@ class ListaADM extends Component {
                         </Button>
                     </ModalFooter>
                 </Modal>
+                <Modal
+                    id="Modalremove"
+                    isOpen={this.state.ModalRemove}
+                    toggle={this.remove}
+                    className={this.props.className}>
+                    <ModalHeader toggle={this.remove}>Confirmaçao de Excluçao</ModalHeader>
+                    <ModalBody style={{width: "100%"}}>
+                    <Label>Vocẽ tem certeza? </Label>
+                        <div style={{float: "right"}}>
+                            <button className="btn btn-success" style={{marginRight: '5px'}} onClick={this.RemoveSucess}>Confirma</button>
+                            <button className="btn btn-danger" onClick={this.cancelaModal}>Cancela</button>
+                        </div>
+                    </ModalBody>
+                    </Modal>
                 </div>
 
              );
