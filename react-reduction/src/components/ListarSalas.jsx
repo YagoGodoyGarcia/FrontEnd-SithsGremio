@@ -56,7 +56,7 @@ class ListarSalas extends React.Component {
                     <br />
                     {this.state.interno.map((dynamicData) =>
                         <Card className="CardContainerSala">
-                            <Col md={12} sm={6} xs={12}>
+                            <Col md={12} sm={6} xs={12}style={{height: '150px'}}>
                                 <br></br>
                                 <CardTitle className="text-center">Sala {dynamicData.numero}</CardTitle>
                                 <CardTitle className="text-center">Capacidade {dynamicData.capacidade}</CardTitle>
